@@ -23,23 +23,25 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deactivate = exports.activate = void 0;
-const vscode = __importStar(require("vscode"));
-const new_bloc_js_1 = require("./command/new-bloc.js");
-const new_cubit_js_1 = require("./command/new-cubit.js");
-const new_feature_js_1 = require("./command/new-feature.js");
-function activate(context) {
-    console.log('Congratulations, your extension "vscode-ext-aldev" is now active!');
-    let disposable = vscode.commands.registerCommand("vscode-ext-aldev.helloWorld", () => {
-        vscode.window.showInformationMessage("Hello World from vscode-ext-aldev!");
-    });
-    context.subscriptions.push(disposable);
-    (0, new_feature_js_1.newFeature)(context);
-    (0, new_cubit_js_1.newCubit)(context);
-    (0, new_bloc_js_1.newBloc)(context);
+exports.getBlocStateTemplate = void 0;
+const changeCase = __importStar(require("change-case"));
+function getBlocStateTemplate(name) {
+    return template(name);
 }
-exports.activate = activate;
-// This method is called when your extension is deactivated
-function deactivate() { }
-exports.deactivate = deactivate;
-//# sourceMappingURL=extension.js.map
+exports.getBlocStateTemplate = getBlocStateTemplate;
+function template(name) {
+    const pascalCase = changeCase.pascalCase(name.toLowerCase());
+    const camelCase = changeCase.camelCase(name.toLowerCase());
+    return `import 'package:equatable/equatable.dart';
+  import '/shared_libraries/utils/state/view_data_state.dart';
+
+class ${pascalCase}State extends Equatable {
+    final ViewData ${camelCase}State;
+
+  const ${pascalCase}State({required this.${camelCase}State});
+
+  @override
+  List<Object?> get props => [${camelCase}State];
+}`;
+}
+//# sourceMappingURL=bloc_state.template.js.map

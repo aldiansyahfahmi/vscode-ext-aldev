@@ -23,49 +23,55 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getCubitTemplate = void 0;
+exports.getBlocTemplate = void 0;
 const changeCase = __importStar(require("change-case"));
-function getCubitTemplate(name) {
+function getBlocTemplate(name) {
     return template(name);
 }
-exports.getCubitTemplate = getCubitTemplate;
+exports.getBlocTemplate = getBlocTemplate;
 function template(name) {
     const pascalCase = changeCase.pascalCase(name.toLowerCase());
-    const snakeCase = changeCase.snakeCase(name.toLowerCase());
     const camelCase = changeCase.camelCase(name.toLowerCase());
+    const snakeCase = changeCase.snakeCase(name.toLowerCase());
     return `import 'package:flutter_bloc/flutter_bloc.dart';
 import '/shared_libraries/utils/state/view_data_state.dart';
-import '/shared_libraries/utils/usecase/usecase.dart';
 import '${snakeCase}_state.dart';
+import '${snakeCase}_event.dart';
 
-class ${pascalCase}Cubit extends Cubit<${pascalCase}State> {
-  final Get${pascalCase}UseCase get${pascalCase}UseCase;
+class ${pascalCase}Bloc extends Bloc<${pascalCase}Event, ${pascalCase}State> {
+  final ${pascalCase}UseCase ${camelCase}UseCase;
 
-  ${pascalCase}Cubit({required this.get${pascalCase}UseCase})
-      : super(${pascalCase}State(${camelCase}State: ViewData.initial()));
-
-  void get${pascalCase}() async {
-    emit(${pascalCase}State(${camelCase}State: ViewData.loading()));
-    final result = await get${pascalCase}UseCase.call(const NoParams());
-    result.fold(
-      (failure) => emit(
+  ${pascalCase}Bloc({required this.${camelCase}UseCase}) : super(
+          ${pascalCase}State(
+            ${camelCase}State: ViewData.initial(),
+          ),
+        ) {
+    on<${pascalCase}>((event, emit) async {
+      emit(
         ${pascalCase}State(
-          ${camelCase}State: ViewData.error(
-            message: failure.errorMessage,
-            failure: failure,
+          ${camelCase}State: ViewData.loading(),
+        ),
+      );
+      final result = await ${camelCase}UseCase.call(event.${camelCase}RequestEntity);
+      result.fold(
+        (failure) async => emit(
+          ${pascalCase}State(
+            ${camelCase}State: ViewData.error(
+              message: failure.errorMessage,
+              failure: failure,
+            ),
           ),
         ),
-      ),
-      (result) => emit(
-        ${pascalCase}State(
-          ${camelCase}State: ViewData.loaded(
-            data: result,
-          ),
-        ),
-      ),
-    );
+        (result) async {
+          emit(
+            ${pascalCase}State(
+              ${camelCase}State: ViewData.loaded(data: result),
+            ),
+          );
+        },
+      );
+    },);
   }
+}`;
 }
-`;
-}
-//# sourceMappingURL=cubit.template.js.map
+//# sourceMappingURL=bloc.template.js.map

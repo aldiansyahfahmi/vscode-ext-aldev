@@ -1,6 +1,6 @@
 import * as changeCase from "change-case";
 
-export function getCubitStateTemplate(name: string): string {
+export function getBlocStateTemplate(name: string): string {
   return template(name);
 }
 

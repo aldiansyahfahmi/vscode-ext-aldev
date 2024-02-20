@@ -25,23 +25,23 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getCubitStateTemplate = void 0;
 const changeCase = __importStar(require("change-case"));
-function getCubitStateTemplate(cubitName) {
-    return getEquatableCubitStateTemplate(cubitName);
+function getCubitStateTemplate(name) {
+    return template(name);
 }
 exports.getCubitStateTemplate = getCubitStateTemplate;
-function getEquatableCubitStateTemplate(cubitName) {
-    const pascalCaseCubitName = changeCase.pascalCase(cubitName.toLowerCase());
-    const camelCaseCubitName = changeCase.camelCase(cubitName.toLowerCase());
+function template(name) {
+    const pascalCase = changeCase.pascalCase(name.toLowerCase());
+    const camelCase = changeCase.camelCase(name.toLowerCase());
     return `import 'package:equatable/equatable.dart';
   import '/shared_libraries/utils/state/view_data_state.dart';
 
-class ${pascalCaseCubitName}State extends Equatable {
-    final ViewData ${camelCaseCubitName}State;
+class ${pascalCase}State extends Equatable {
+    final ViewData ${camelCase}State;
 
-  const ${pascalCaseCubitName}State({required this.${camelCaseCubitName}State});
+  const ${pascalCase}State({required this.${camelCase}State});
 
   @override
-  List<Object?> get props => [${camelCaseCubitName}State];
+  List<Object?> get props => [${camelCase}State];
 }`;
 }
 //# sourceMappingURL=cubit_state.template.js.map
