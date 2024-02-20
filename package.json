@@ -1,0 +1,71 @@
+{
+  "name": "vscode-ext-aldev",
+  "displayName": "vscode-ext-aldev",
+  "description": "Flutter Clean Architecture",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.54.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "vscode-ext-aldev.helloWorld",
+        "title": "Hello World"
+      },
+      {
+        "command": "vscode-ext-aldev.newFeature",
+        "title": "Aldev: New Feature"
+      },
+      {
+        "command": "vscode-ext-aldev.newCubit",
+        "title": "Aldev: New Cubit"
+      }
+    ],
+    "menus": {
+      "explorer/context": [
+        {
+          "command": "vscode-ext-aldev.newFeature",
+          "group": "aldev@1",
+          "when": "explorerResourceIsFolder"
+        },
+        {
+          "command": "vscode-ext-aldev.newCubit",
+          "group": "aldev@2",
+          "when": "explorerResourceIsFolder"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/change-case": "^2.3.1",
+    "@types/lodash": "^4.14.202",
+    "@types/mkdirp": "^2.0.0",
+    "@types/mocha": "^10.0.6",
+    "@types/node": "18.x",
+    "@types/vscode": "^1.54.0",
+    "@typescript-eslint/eslint-plugin": "^6.19.1",
+    "@typescript-eslint/parser": "^6.19.1",
+    "@vscode/test-cli": "^0.0.4",
+    "@vscode/test-electron": "^2.3.9",
+    "eslint": "^8.56.0",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "change-case": "^5.4.3",
+    "lodash": "^4.17.21",
+    "mkdirp": "^3.0.1"
+  }
+}
