@@ -35,7 +35,7 @@ const show_input_box_js_1 = require("../utils/show-input-box.js");
 async function newBloc(context) {
     let generateFolder = vscode.commands.registerCommand("vscode-ext-aldev.newBloc", async (uri) => {
         // Menampilkan form input
-        let inputName = await (0, show_input_box_js_1.showInputBox)("Enter bloc name");
+        let inputName = await (0, show_input_box_js_1.showInputBox)("Bloc name");
         // Cek apakah inputName valid
         if (!(0, is_name_valid_js_1.isNameValid)(inputName)) {
             vscode.window.showErrorMessage("The name must not be empty");
@@ -57,7 +57,6 @@ async function newBloc(context) {
                 const filePath = path.join(folderPath, file.name);
                 fs.writeFileSync(filePath, file.content);
             });
-            console.log(`'${folderName}_bloc' berhasil dibuat.`);
         }
         const cubitName = inputName?.toLowerCase();
         const files = [

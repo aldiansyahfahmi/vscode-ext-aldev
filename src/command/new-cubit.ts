@@ -9,7 +9,7 @@ import { showInputBox } from "../utils/show-input-box.js";
 export async function newCubit(context: vscode.ExtensionContext) {
   let generateFolder = vscode.commands.registerCommand("vscode-ext-aldev.newCubit", async (uri: vscode.Uri) => {
     // Menampilkan form input
-    let inputName = await showInputBox("Enter cubit name");
+    let inputName = await showInputBox("Cubit name");
 
     // Cek apakah inputName valid
     if (!isNameValid(inputName)) {
@@ -19,7 +19,7 @@ export async function newCubit(context: vscode.ExtensionContext) {
     // Uri menyediakan path ke folder yang diklik kanan
     const basePath = uri.fsPath;
 
-    function createCubit(basePath: string, folderName: string, files: { name: string; content: string }[]) {
+    function create(basePath: string, folderName: string, files: { name: string; content: string }[]) {
       // Path untuk daftar bloc
       const bloc = path.join(basePath, "bloc");
 
@@ -36,7 +36,6 @@ export async function newCubit(context: vscode.ExtensionContext) {
         const filePath = path.join(folderPath, file.name);
         fs.writeFileSync(filePath, file.content);
       });
-      console.log(`'${folderName}_cubit' berhasil dibuat.`);
     }
 
     const cubitName = inputName?.toLowerCase();
@@ -47,7 +46,7 @@ export async function newCubit(context: vscode.ExtensionContext) {
     ];
 
     // Membuat struktur folder
-    createCubit(basePath, cubitName!, files);
+    create(basePath, cubitName!, files);
 
     vscode.window.showInformationMessage("Cubit created successfully!");
   });

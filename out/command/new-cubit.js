@@ -34,7 +34,7 @@ const show_input_box_js_1 = require("../utils/show-input-box.js");
 async function newCubit(context) {
     let generateFolder = vscode.commands.registerCommand("vscode-ext-aldev.newCubit", async (uri) => {
         // Menampilkan form input
-        let inputName = await (0, show_input_box_js_1.showInputBox)("Enter cubit name");
+        let inputName = await (0, show_input_box_js_1.showInputBox)("Cubit name");
         // Cek apakah inputName valid
         if (!(0, is_name_valid_js_1.isNameValid)(inputName)) {
             vscode.window.showErrorMessage("The name must not be empty");
@@ -42,7 +42,7 @@ async function newCubit(context) {
         }
         // Uri menyediakan path ke folder yang diklik kanan
         const basePath = uri.fsPath;
-        function createCubit(basePath, folderName, files) {
+        function create(basePath, folderName, files) {
             // Path untuk daftar bloc
             const bloc = path.join(basePath, "bloc");
             // Path untuk cubit baru
@@ -56,7 +56,6 @@ async function newCubit(context) {
                 const filePath = path.join(folderPath, file.name);
                 fs.writeFileSync(filePath, file.content);
             });
-            console.log(`'${folderName}_cubit' berhasil dibuat.`);
         }
         const cubitName = inputName?.toLowerCase();
         const files = [
@@ -64,7 +63,7 @@ async function newCubit(context) {
             { name: `${cubitName}_state.dart`, content: (0, cubit_state_template_js_1.getCubitStateTemplate)(cubitName) },
         ];
         // Membuat struktur folder
-        createCubit(basePath, cubitName, files);
+        create(basePath, cubitName, files);
         vscode.window.showInformationMessage("Cubit created successfully!");
     });
     context.subscriptions.push(generateFolder);

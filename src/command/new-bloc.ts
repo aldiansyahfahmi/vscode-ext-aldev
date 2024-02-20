@@ -10,7 +10,7 @@ import { showInputBox } from "../utils/show-input-box.js";
 export async function newBloc(context: vscode.ExtensionContext) {
   let generateFolder = vscode.commands.registerCommand("vscode-ext-aldev.newBloc", async (uri: vscode.Uri) => {
     // Menampilkan form input
-    let inputName = await showInputBox("Enter bloc name");
+    let inputName = await showInputBox("Bloc name");
 
     // Cek apakah inputName valid
     if (!isNameValid(inputName)) {
@@ -37,7 +37,6 @@ export async function newBloc(context: vscode.ExtensionContext) {
         const filePath = path.join(folderPath, file.name);
         fs.writeFileSync(filePath, file.content);
       });
-      console.log(`'${folderName}_bloc' berhasil dibuat.`);
     }
 
     const cubitName = inputName?.toLowerCase();
