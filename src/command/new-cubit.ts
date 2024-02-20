@@ -1,8 +1,10 @@
 import * as fs from "fs";
 import * as path from "path";
 import * as vscode from "vscode";
-import { isNameValid } from "../utils/is-name-valid";
-import { showInputBox } from "../utils/show-input-box";
+import { getCubitTemplate } from "../templates/cubit/cubit.template.js";
+import { getCubitStateTemplate } from "../templates/cubit/cubit_state.template.js";
+import { isNameValid } from "../utils/is-name-valid.js";
+import { showInputBox } from "../utils/show-input-box.js";
 
 export async function newCubit(context: vscode.ExtensionContext) {
   let generateFolder = vscode.commands.registerCommand("vscode-ext-aldev.newCubit", async (uri: vscode.Uri) => {
@@ -18,9 +20,6 @@ export async function newCubit(context: vscode.ExtensionContext) {
     const basePath = uri.fsPath;
 
     function createCubit(basePath: string, folderName: string, files: { name: string; content: string }[]) {
-      // Folder name to pascal case
-      // const cubitName = changeCase.pascalCase(folderName.toLocaleLowerCase());
-
       // Path untuk daftar bloc
       const bloc = path.join(basePath, "bloc");
 
@@ -40,15 +39,17 @@ export async function newCubit(context: vscode.ExtensionContext) {
       console.log(`'${folderName}_cubit' berhasil dibuat.`);
     }
 
+    const cubitName = inputName?.toLowerCase();
+
     const files = [
-      { name: `${inputName}_cubit.dart`, content: "" },
-      { name: `${inputName}_state.dart`, content: "" },
+      { name: `${cubitName}_cubit.dart`, content: getCubitTemplate(cubitName!) },
+      { name: `${cubitName}_state.dart`, content: getCubitStateTemplate(cubitName!) },
     ];
 
     // Membuat struktur folder
-    createCubit(basePath, inputName!, files);
+    createCubit(basePath, cubitName!, files);
 
-    vscode.window.showInformationMessage("Feature folders created successfully!");
+    vscode.window.showInformationMessage("Cubit created successfully!");
   });
 
   context.subscriptions.push(generateFolder);

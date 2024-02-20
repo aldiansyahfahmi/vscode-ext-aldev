@@ -1,20 +1,21 @@
-// import * as changeCase from "change-case";
+import * as changeCase from "change-case";
 
-// export function getCubitStateTemplate(cubitName: string): string {
-//   return getEquatableCubitStateTemplate(cubitName);
-// }
+export function getCubitStateTemplate(cubitName: string): string {
+  return getEquatableCubitStateTemplate(cubitName);
+}
 
-// function getEquatableCubitStateTemplate(cubitName: string): string {
-//   const pascalCaseCubitName = changeCase.pascalCase(cubitName.toLowerCase());
-//   const camelCaseCubitName = changeCase.camelCase(cubitName.toLowerCase());
-//   return `import 'package:equatable/equatable.dart';
+function getEquatableCubitStateTemplate(cubitName: string): string {
+  const pascalCaseCubitName = changeCase.pascalCase(cubitName.toLowerCase());
+  const camelCaseCubitName = changeCase.camelCase(cubitName.toLowerCase());
+  return `import 'package:equatable/equatable.dart';
+  import '/shared_libraries/utils/state/view_data_state.dart';
 
-// class ${pascalCaseCubitName}State extends Equatable {
-//     final ViewData ${camelCaseCubitName}State;
+class ${pascalCaseCubitName}State extends Equatable {
+    final ViewData ${camelCaseCubitName}State;
 
-//   const ${pascalCaseCubitName}State({required this.${camelCaseCubitName}State});
+  const ${pascalCaseCubitName}State({required this.${camelCaseCubitName}State});
 
-//   @override
-//   List<Object?> get props => [${camelCaseCubitName}State];
-// }`;
-// }
+  @override
+  List<Object?> get props => [${camelCaseCubitName}State];
+}`;
+}
