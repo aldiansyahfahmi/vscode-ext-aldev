@@ -28,6 +28,7 @@ const vscode = __importStar(require("vscode"));
 const new_bloc_js_1 = require("./command/new-bloc.js");
 const new_cubit_js_1 = require("./command/new-cubit.js");
 const new_feature_js_1 = require("./command/new-feature.js");
+const new_usecase_js_1 = require("./command/new-usecase.js");
 function activate(context) {
     console.log('Congratulations, your extension "vscode-ext-aldev" is now active!');
     let disposable = vscode.commands.registerCommand("vscode-ext-aldev.helloWorld", () => {
@@ -37,6 +38,7 @@ function activate(context) {
     (0, new_feature_js_1.newFeature)(context);
     (0, new_cubit_js_1.newCubit)(context);
     (0, new_bloc_js_1.newBloc)(context);
+    (0, new_usecase_js_1.newUseCase)(context);
 }
 exports.activate = activate;
 // This method is called when your extension is deactivated

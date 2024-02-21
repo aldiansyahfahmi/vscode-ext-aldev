@@ -28,6 +28,10 @@
       {
         "command": "vscode-ext-aldev.newBloc",
         "title": "Aldev: New Bloc"
+      },
+      {
+        "command": "vscode-ext-aldev.newUseCase",
+        "title": "Aldev: New UseCase"
       }
     ],
     "menus": {
@@ -45,6 +49,11 @@
         {
           "command": "vscode-ext-aldev.newBloc",
           "group": "aldev@3",
+          "when": "explorerResourceIsFolder"
+        },
+        {
+          "command": "vscode-ext-aldev.newUseCase",
+          "group": "aldev@4",
           "when": "explorerResourceIsFolder"
         }
       ]
