@@ -27,9 +27,9 @@ exports.newBloc = void 0;
 const fs = __importStar(require("fs"));
 const path = __importStar(require("path"));
 const vscode = __importStar(require("vscode"));
-const bloc_template_js_1 = require("../templates/bloc/bloc.template.js");
-const bloc_event_template_js_1 = require("../templates/bloc/bloc_event.template.js");
-const bloc_state_template_js_1 = require("../templates/bloc/bloc_state.template.js");
+const bloc_template_js_1 = require("../templates/feature/presentation/bloc/bloc.template.js");
+const bloc_event_template_js_1 = require("../templates/feature/presentation/bloc/bloc_event.template.js");
+const bloc_state_template_js_1 = require("../templates/feature/presentation/bloc/bloc_state.template.js");
 const is_name_valid_js_1 = require("../utils/is-name-valid.js");
 const show_input_box_js_1 = require("../utils/show-input-box.js");
 async function newBloc(context) {

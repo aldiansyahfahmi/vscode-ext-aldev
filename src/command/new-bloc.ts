@@ -1,9 +1,9 @@
 import * as fs from "fs";
 import * as path from "path";
 import * as vscode from "vscode";
-import { getBlocTemplate } from "../templates/bloc/bloc.template.js";
-import { getBlocEventTemplate } from "../templates/bloc/bloc_event.template.js";
-import { getBlocStateTemplate } from "../templates/bloc/bloc_state.template.js";
+import { getBlocTemplate } from "../templates/feature/presentation/bloc/bloc.template.js";
+import { getBlocEventTemplate } from "../templates/feature/presentation/bloc/bloc_event.template.js";
+import { getBlocStateTemplate } from "../templates/feature/presentation/bloc/bloc_state.template.js";
 import { isNameValid } from "../utils/is-name-valid.js";
 import { showInputBox } from "../utils/show-input-box.js";
 

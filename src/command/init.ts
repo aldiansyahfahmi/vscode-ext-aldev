@@ -166,7 +166,7 @@ export async function init(context: vscode.ExtensionContext) {
 
         // Create the file inside the folder named after the key
         const filePath = path.join(folderPath, fileName);
-        fs.writeFileSync(filePath, "");
+        fs.writeFileSync(filePath, content);
       }
 
       function create(basePath: string, obj: any) {

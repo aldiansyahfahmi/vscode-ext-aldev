@@ -186,7 +186,7 @@ async function init(context) {
                 const content = determineFileContent(fileName);
                 // Create the file inside the folder named after the key
                 const filePath = path.join(folderPath, fileName);
-                fs.writeFileSync(filePath, "");
+                fs.writeFileSync(filePath, content);
             }
             function create(basePath, obj) {
                 Object.keys(obj).forEach((key) => {

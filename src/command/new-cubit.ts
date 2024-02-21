@@ -1,8 +1,8 @@
 import * as fs from "fs";
 import * as path from "path";
 import * as vscode from "vscode";
-import { getCubitTemplate } from "../templates/cubit/cubit.template.js";
-import { getCubitStateTemplate } from "../templates/cubit/cubit_state.template.js";
+import { getCubitTemplate } from "../templates/feature/presentation/cubit/cubit.template.js";
+import { getCubitStateTemplate } from "../templates/feature/presentation/cubit/cubit_state.template.js";
 import { isNameValid } from "../utils/is-name-valid.js";
 import { showInputBox } from "../utils/show-input-box.js";
 
