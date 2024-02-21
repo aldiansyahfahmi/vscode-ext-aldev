@@ -21,6 +21,17 @@ export async function newFeature(context: vscode.ExtensionContext) {
       vscode.window.showErrorMessage("The name must not be empty");
       return;
     }
+
+    const stateManagementOptions = ["Bloc", "Riverpod"];
+    const stateManagementSelected = await vscode.window.showQuickPick(stateManagementOptions, {
+      placeHolder: "Select State Management",
+    });
+
+    if (!isNameValid(stateManagementSelected)) {
+      vscode.window.showErrorMessage("The state management must not be empty");
+      return;
+    }
+
     // Uri menyediakan path ke folder yang diklik kanan
     const basePath = uri.fsPath;
 
@@ -43,7 +54,7 @@ export async function newFeature(context: vscode.ExtensionContext) {
           usecases: { files: [`${snakeCase}_usecase.dart`] },
         },
         presentation: {
-          bloc: {},
+          [stateManagementSelected! == "Riverpod" ? "provider" : stateManagementSelected!.toLowerCase()]: {},
           screen: { files: [`${snakeCase}_screen.dart`] },
         },
       },
