@@ -38,30 +38,30 @@ class ApiInterceptors extends Interceptor {
       final queryParameters =
           const JsonEncoder.withIndent('  ').convert(options.queryParameters);
       log(
-        'Request URL : \${options.uri}\n'
-        '----------------------------------------------------------------------\n'
-        'Header: \${options.headers}\n'
-        '----------------------------------------------------------------------\n'
-        'Request Body: $requestBody\n'
-        '----------------------------------------------------------------------\n'
-        'Request Query Parameters: $queryParameters\n'
-        '----------------------------------------------------------------------\n'
-        'Method: \${options.method}\n',
+        'Request URL : \${options.uri}\\n'
+        '----------------------------------------------------------------------\\n'
+        'Header: \${options.headers}\\n'
+        '----------------------------------------------------------------------\\n'
+        'Request Body: $requestBody\\n'
+        '----------------------------------------------------------------------\\n'
+        'Request Query Parameters: $queryParameters\\n'
+        '----------------------------------------------------------------------\\n'
+        'Method: \${options.method}\\n',
       );
       return handler.next(options);
     } catch (e) {
       final queryParameters =
           const JsonEncoder.withIndent('  ').convert(options.queryParameters);
       log(
-        'Request URL : \${options.uri}\n'
-        '----------------------------------------------------------------------\n'
-        'Header: \${options.headers}\n'
-        '----------------------------------------------------------------------\n'
-        'Request Body: cannot read request body\n'
-        '----------------------------------------------------------------------\n'
-        'Request Query Parameters: $queryParameters\n'
-        '----------------------------------------------------------------------\n'
-        'Method: \${options.method}\n',
+        'Request URL : \${options.uri}\\n'
+        '----------------------------------------------------------------------\\n'
+        'Header: \${options.headers}\\n'
+        '----------------------------------------------------------------------\\n'
+        'Request Body: cannot read request body\\n'
+        '----------------------------------------------------------------------\\n'
+        'Request Query Parameters: $queryParameters\\n'
+        '----------------------------------------------------------------------\\n'
+        'Method: \${options.method}\\n',
       );
       return handler.next(options);
     }
@@ -72,9 +72,9 @@ class ApiInterceptors extends Interceptor {
     final prettyString =
         const JsonEncoder.withIndent('  ').convert(response.data);
     log(
-      'Status Code: \${response.statusCode}\n'
-      '——————————————————————————————————————————————————————————————————————\n'
-      'Response : $prettyString\n',
+      'Status Code: \${response.statusCode}\\n'
+      '——————————————————————————————————————————————————————————————————————\\n'
+      'Response : $prettyString\\n',
     );
     return handler.next(response);
   }

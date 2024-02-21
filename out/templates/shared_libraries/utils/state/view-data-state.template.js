@@ -100,43 +100,43 @@ extension ObservingState<T> on ViewData<T> {
   }
 }
 
-extension ObservingStateFunction<T> on ViewData<T> {
-  void listen({
-    required BuildContext context,
-    required Function(T? data) isHasData,
-    Function? isError,
-    Function? isLoading,
-    Function? isNoData,
-  }) {
-    if (status.isLoading) {
-      if (isLoading != null) {
-        isLoading();
-      } else {
-        LoadingStack.show(context);
-      }
-    } else if (status.isError) {
-      if (isError != null) {
-        isError();
-      } else {
-        LoadingStack.dismiss(context);
-        CustomDialog.show(
-          context: context,
-          type: DialogType.failed,
-          title: 'Oops!',
-          subTitle: message,
-          buttonText: 'Oke',
-          onTap: () => Navigator.pop(context),
-        );
-      }
-    } else if (status.isHasData) {
-      isHasData(data);
-    } else if (status.isNoData) {
-      if (isNoData != null) {
-        isNoData();
-      }
-    } else {}
-  }
-}
+// extension ObservingStateFunction<T> on ViewData<T> {
+//   void listen({
+//     required BuildContext context,
+//     required Function(T? data) isHasData,
+//     Function? isError,
+//     Function? isLoading,
+//     Function? isNoData,
+//   }) {
+//     if (status.isLoading) {
+//       if (isLoading != null) {
+//         isLoading();
+//       } else {
+//         LoadingStack.show(context);
+//       }
+//     } else if (status.isError) {
+//       if (isError != null) {
+//         isError();
+//       } else {
+//         LoadingStack.dismiss(context);
+//         CustomDialog.show(
+//           context: context,
+//           type: DialogType.failed,
+//           title: 'Oops!',
+//           subTitle: message,
+//           buttonText: 'Oke',
+//           onTap: () => Navigator.pop(context),
+//         );
+//       }
+//     } else if (status.isHasData) {
+//       isHasData(data);
+//     } else if (status.isNoData) {
+//       if (isNoData != null) {
+//         isNoData();
+//       }
+//     } else {}
+//   }
+// }
 
 `;
 }

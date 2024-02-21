@@ -9,7 +9,7 @@ function template(name) {
     return `import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../injections/injections.dart';
+import '../../../di/injections.dart';
 import '../../utils/setup/app_setup.dart';
 import '../network/dio_handler.dart';
 

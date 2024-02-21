@@ -3,7 +3,7 @@ export function getUtilsModuleTemplate(name: string): string {
 }
 
 function template(name: string): string {
-  return `import '../../../injections/injections.dart';
+  return `import '../../../di/injections.dart';
 import '../navigation/navigation_helper.dart';
 
 class RegisterUtilsModule {

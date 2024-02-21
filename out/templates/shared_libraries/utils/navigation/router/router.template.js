@@ -45,7 +45,7 @@ class ${pascalCase}RouterImpl implements ${pascalCase}Router {
 
   @override
   void navigateToOtherScreen() {
-    navigationHelper.pushNamed(AppRoutes.other);
+    navigationHelper.pushNamed(AppRoutes.${name.toLocaleLowerCase()});
   }
 }
 

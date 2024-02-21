@@ -7,7 +7,7 @@ function getAppRoutesTemplate(name) {
 exports.getAppRoutesTemplate = getAppRoutesTemplate;
 function template(name) {
     return `class AppRoutes {
-  static const String splash = '/splash';
+  static const String splash = '/${name.toLocaleLowerCase()}';
 }
 
 `;

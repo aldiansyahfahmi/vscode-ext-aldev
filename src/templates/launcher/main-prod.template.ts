@@ -4,7 +4,7 @@ export function getMainProdTemplate(name: string): string {
 
 function template(name: string): string {
   return `import 'package:flutter/material.dart';
-import '../injections/injections.dart';
+import '../di/injections.dart';
 import '../app/main_app.dart';
 import '../shared_libraries/utils/setup/app_setup.dart';
 

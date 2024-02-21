@@ -5,8 +5,8 @@ export function getInjectionsTemplate(name: string): string {
 function template(name: string): string {
   return `import 'package:get_it/get_it.dart';
 
-import '../shared_libraries/core/di/core_module.dart';
-import '../shared_libraries/utils/di/utils_module.dart';
+import '../shared_libraries/core/di/core_modules.dart';
+import '../shared_libraries/utils/di/utils_modules.dart';
 
 final sl = GetIt.instance;
 

@@ -48,7 +48,7 @@ class ${pascalCase}UseCase
   @override
   Future<Either<FailureResponse, List<${pascalCase}DataEntity>>> call(
           NoParams params) async =>
-      ${camelCase}Repository.${pascalCase}();
+      ${camelCase}Repository.get${pascalCase}();
 }
 `;
 }
