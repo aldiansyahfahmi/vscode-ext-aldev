@@ -32,6 +32,10 @@
       {
         "command": "vscode-ext-aldev.newUseCase",
         "title": "Aldev: New UseCase"
+      },
+      {
+        "command": "vscode-ext-aldev.init",
+        "title": "Aldev: Init"
       }
     ],
     "menus": {
@@ -54,6 +58,11 @@
         {
           "command": "vscode-ext-aldev.newUseCase",
           "group": "aldev@4",
+          "when": "explorerResourceIsFolder"
+        },
+        {
+          "command": "vscode-ext-aldev.init",
+          "group": "aldev@5",
           "when": "explorerResourceIsFolder"
         }
       ]

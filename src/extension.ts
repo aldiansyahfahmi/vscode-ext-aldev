@@ -1,4 +1,5 @@
 import * as vscode from "vscode";
+import { init } from "./command/init.js";
 import { newBloc } from "./command/new-bloc.js";
 import { newCubit } from "./command/new-cubit.js";
 import { newFeature } from "./command/new-feature.js";
@@ -16,6 +17,7 @@ export function activate(context: vscode.ExtensionContext) {
   newCubit(context);
   newBloc(context);
   newUseCase(context);
+  init(context);
 }
 
 // This method is called when your extension is deactivated

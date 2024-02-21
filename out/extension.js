@@ -25,6 +25,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deactivate = exports.activate = void 0;
 const vscode = __importStar(require("vscode"));
+const init_js_1 = require("./command/init.js");
 const new_bloc_js_1 = require("./command/new-bloc.js");
 const new_cubit_js_1 = require("./command/new-cubit.js");
 const new_feature_js_1 = require("./command/new-feature.js");
@@ -39,6 +40,7 @@ function activate(context) {
     (0, new_cubit_js_1.newCubit)(context);
     (0, new_bloc_js_1.newBloc)(context);
     (0, new_usecase_js_1.newUseCase)(context);
+    (0, init_js_1.init)(context);
 }
 exports.activate = activate;
 // This method is called when your extension is deactivated
