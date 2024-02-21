@@ -31,6 +31,7 @@ const vscode = __importStar(require("vscode"));
 const remote_datasource_template_js_1 = require("../templates/feature/data/datasources/remote-datasource.template.js");
 const mapper_template_js_1 = require("../templates/feature/data/mapper/mapper.template.js");
 const repository_impl_template_js_1 = require("../templates/feature/data/repositories/repository-impl.template.js");
+const di_template_js_1 = require("../templates/feature/di/di.template.js");
 const repository_template_js_1 = require("../templates/feature/domain/repositories/repository.template.js");
 const usecase_template_js_1 = require("../templates/feature/domain/usecases/usecase.template.js");
 const screen_template_js_1 = require("../templates/feature/presentation/screen/screen.template.js");
@@ -67,6 +68,9 @@ async function newFeature(context) {
                     mapper: { files: [`${snakeCase}_mapper.dart`] },
                     models: { body: {}, response: {} },
                     repositories: { files: [`${snakeCase}_repository_impl.dart`] },
+                },
+                di: {
+                    files: [`${snakeCase}_dependency.dart`],
                 },
                 domain: {
                     entities: { body: {}, response: {} },
@@ -108,6 +112,9 @@ async function newFeature(context) {
             }
             else if (fileName.includes("screen")) {
                 return (0, screen_template_js_1.getScreenTemplate)(inputName);
+            }
+            else if (fileName.includes("dependency")) {
+                return (0, di_template_js_1.getDiTemplate)(inputName);
             }
             // Default content if no condition matches
             return "// Default content here\n";

@@ -5,6 +5,7 @@ import * as vscode from "vscode";
 import { getRemoteDataSourceTemplate } from "../templates/feature/data/datasources/remote-datasource.template.js";
 import { getMapperTemplate } from "../templates/feature/data/mapper/mapper.template.js";
 import { getRepositoryImplTemplate } from "../templates/feature/data/repositories/repository-impl.template.js";
+import { getDiTemplate } from "../templates/feature/di/di.template.js";
 import { getRepositoryTemplate } from "../templates/feature/domain/repositories/repository.template.js";
 import { getUseCaseTemplate } from "../templates/feature/domain/usecases/usecase.template.js";
 import { getScreenTemplate } from "../templates/feature/presentation/screen/screen.template.js";
@@ -48,6 +49,9 @@ export async function newFeature(context: vscode.ExtensionContext) {
           models: { body: {}, response: {} },
           repositories: { files: [`${snakeCase}_repository_impl.dart`] },
         },
+        di: {
+          files: [`${snakeCase}_dependency.dart`],
+        },
         domain: {
           entities: { body: {}, response: {} },
           repositories: { files: [`${snakeCase}_repository.dart`] },
@@ -84,6 +88,8 @@ export async function newFeature(context: vscode.ExtensionContext) {
         return getUseCaseTemplate(inputName!);
       } else if (fileName.includes("screen")) {
         return getScreenTemplate(inputName!);
+      } else if (fileName.includes("dependency")) {
+        return getDiTemplate(inputName!);
       }
       // Default content if no condition matches
       return "// Default content here\n";
