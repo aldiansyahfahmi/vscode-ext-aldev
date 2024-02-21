@@ -28,6 +28,12 @@ const changeCase = __importStar(require("change-case"));
 const fs = __importStar(require("fs"));
 const path = __importStar(require("path"));
 const vscode = __importStar(require("vscode"));
+const remote_datasource_template_js_1 = require("../templates/feature/data/datasources/remote-datasource.template.js");
+const mapper_template_js_1 = require("../templates/feature/data/mapper/mapper.template.js");
+const repository_impl_template_js_1 = require("../templates/feature/data/repositories/repository-impl.template.js");
+const repository_template_js_1 = require("../templates/feature/domain/repositories/repository.template.js");
+const usecase_template_js_1 = require("../templates/feature/domain/usecases/usecase.template.js");
+const screen_template_js_1 = require("../templates/feature/presentation/screen/screen.template.js");
 const is_name_valid_js_1 = require("../utils/is-name-valid.js");
 const show_input_box_js_1 = require("../utils/show-input-box.js");
 async function newFeature(context) {
@@ -46,7 +52,7 @@ async function newFeature(context) {
         const structure = {
             [inputName]: {
                 data: {
-                    datasource: {
+                    datasources: {
                         remote: { files: [`${snakeCase}_remote_datasource.dart`] },
                         local: { files: [`${snakeCase}_local_datasource.dart`] },
                     },
@@ -78,22 +84,22 @@ async function newFeature(context) {
                 return "// Local Datasource content here\n";
             }
             else if (fileName.includes("remote")) {
-                return "// Remote Datasource content here\n";
+                return (0, remote_datasource_template_js_1.getRemoteDataSourceTemplate)(inputName);
             }
             else if (fileName.includes("mapper")) {
-                return "// Mapper content here\n";
+                return (0, mapper_template_js_1.getMapperTemplate)(inputName);
             }
             else if (fileName.includes("repository_impl")) {
-                return "// Repository implementation content here\n";
+                return (0, repository_impl_template_js_1.getRepositoryImplTemplate)(inputName);
             }
             else if (fileName.includes("repository")) {
-                return "// Repository content here\n";
+                return (0, repository_template_js_1.getRepositoryTemplate)(inputName);
             }
             else if (fileName.includes("usecase")) {
-                return "// Use case content here\n";
+                return (0, usecase_template_js_1.getUseCaseTemplate)(inputName);
             }
             else if (fileName.includes("screen")) {
-                return "// Screen content here\n";
+                return (0, screen_template_js_1.getScreenTemplate)(inputName);
             }
             // Default content if no condition matches
             return "// Default content here\n";
@@ -124,10 +130,9 @@ async function newFeature(context) {
                 }
             });
         }
-        const files = [{ name: `fileName`, content: "isi file" }];
         // Membuat struktur folder
         create(basePath, structure);
-        vscode.window.showInformationMessage("Feature folders created successfully!");
+        vscode.window.showInformationMessage("Feature created successfully!");
     });
     context.subscriptions.push(generateFolder);
 }

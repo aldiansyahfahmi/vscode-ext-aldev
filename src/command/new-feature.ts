@@ -2,6 +2,12 @@ import * as changeCase from "change-case";
 import * as fs from "fs";
 import * as path from "path";
 import * as vscode from "vscode";
+import { getRemoteDataSourceTemplate } from "../templates/feature/data/datasources/remote-datasource.template.js";
+import { getMapperTemplate } from "../templates/feature/data/mapper/mapper.template.js";
+import { getRepositoryImplTemplate } from "../templates/feature/data/repositories/repository-impl.template.js";
+import { getRepositoryTemplate } from "../templates/feature/domain/repositories/repository.template.js";
+import { getUseCaseTemplate } from "../templates/feature/domain/usecases/usecase.template.js";
+import { getScreenTemplate } from "../templates/feature/presentation/screen/screen.template.js";
 import { isNameValid } from "../utils/is-name-valid.js";
 import { showInputBox } from "../utils/show-input-box.js";
 
@@ -23,7 +29,7 @@ export async function newFeature(context: vscode.ExtensionContext) {
     const structure = {
       [inputName!]: {
         data: {
-          datasource: {
+          datasources: {
             remote: { files: [`${snakeCase}_remote_datasource.dart`] },
             local: { files: [`${snakeCase}_local_datasource.dart`] },
           },
@@ -56,17 +62,17 @@ export async function newFeature(context: vscode.ExtensionContext) {
       if (fileName.includes("local")) {
         return "// Local Datasource content here\n";
       } else if (fileName.includes("remote")) {
-        return "// Remote Datasource content here\n";
+        return getRemoteDataSourceTemplate(inputName!);
       } else if (fileName.includes("mapper")) {
-        return "// Mapper content here\n";
+        return getMapperTemplate(inputName!);
       } else if (fileName.includes("repository_impl")) {
-        return "// Repository implementation content here\n";
+        return getRepositoryImplTemplate(inputName!);
       } else if (fileName.includes("repository")) {
-        return "// Repository content here\n";
+        return getRepositoryTemplate(inputName!);
       } else if (fileName.includes("usecase")) {
-        return "// Use case content here\n";
+        return getUseCaseTemplate(inputName!);
       } else if (fileName.includes("screen")) {
-        return "// Screen content here\n";
+        return getScreenTemplate(inputName!);
       }
       // Default content if no condition matches
       return "// Default content here\n";
@@ -100,12 +106,10 @@ export async function newFeature(context: vscode.ExtensionContext) {
       });
     }
 
-    const files = [{ name: `fileName`, content: "isi file" }];
-
     // Membuat struktur folder
     create(basePath, structure);
 
-    vscode.window.showInformationMessage("Feature folders created successfully!");
+    vscode.window.showInformationMessage("Feature created successfully!");
   });
 
   context.subscriptions.push(generateFolder);
