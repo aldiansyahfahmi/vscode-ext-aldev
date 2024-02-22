@@ -2,32 +2,34 @@ import * as changeCase from "change-case";
 import * as fs from "fs";
 import * as path from "path";
 import * as vscode from "vscode";
-import { getInjectionsTemplate } from "../templates/di/injections.template.js";
-import { getRemoteDataSourceTemplate } from "../templates/feature/data/datasources/remote-datasource.template.js";
-import { getMapperTemplate } from "../templates/feature/data/mapper/mapper.template.js";
-import { getRepositoryImplTemplate } from "../templates/feature/data/repositories/repository-impl.template.js";
-import { getDiTemplate } from "../templates/feature/di/di.template.js";
-import { getRepositoryTemplate } from "../templates/feature/domain/repositories/repository.template.js";
-import { getUseCaseTemplate } from "../templates/feature/domain/usecases/usecase.template.js";
-import { getScreenTemplate } from "../templates/feature/presentation/screen/screen.template.js";
-import { getMainDevTemplate } from "../templates/launcher/main-dev.template.js";
-import { getMainProdTemplate } from "../templates/launcher/main-prod.template.js";
-import { getCoreModuleTemplate } from "../templates/shared_libraries/core/di/core-module.template.js";
-import { getApiInterceptorsTemplate } from "../templates/shared_libraries/core/network/api-interceptors.template.js";
-import { getDioHandlerTemplate } from "../templates/shared_libraries/core/network/dio-handler.template.js";
-import { getApiResponseTemplate } from "../templates/shared_libraries/core/network/models/api-response.template.js";
-import { getAppConstantsTemplate } from "../templates/shared_libraries/utils/constants/app-constants.template.js";
-import { getUtilsModuleTemplate } from "../templates/shared_libraries/utils/di/utils-module.template.js";
-import { getExceptionTemplate } from "../templates/shared_libraries/utils/error/exception.template.js";
-import { getFailureResponseTemplate } from "../templates/shared_libraries/utils/error/failure-response.template.js";
-import { getNavigationHelperTemplate } from "../templates/shared_libraries/utils/navigation/navigation-helper.template.js";
-import { getAppRoutesTemplate } from "../templates/shared_libraries/utils/navigation/router/app-routes.template.js";
-import { getRouterTemplate } from "../templates/shared_libraries/utils/navigation/router/router.template.js";
-import { getAppSetupTemplate } from "../templates/shared_libraries/utils/setup/app-setup.template.js";
-import { getViewDataStateTemplate } from "../templates/shared_libraries/utils/state/view-data-state.template.js";
-import { getSharedUseCaseTemplate } from "../templates/shared_libraries/utils/usecase/usecase.template.js";
-import { isNameValid } from "../utils/is-name-valid.js";
-import { showInputBox } from "../utils/show-input-box.js";
+
+import {
+  getApiInterceptorsTemplate,
+  getApiResponseTemplate,
+  getAppConstantsTemplate,
+  getAppRoutesTemplate,
+  getAppSetupTemplate,
+  getCoreModuleTemplate,
+  getDiTemplate,
+  getDioHandlerTemplate,
+  getExceptionTemplate,
+  getFailureResponseTemplate,
+  getInjectionsTemplate,
+  getMainDevTemplate,
+  getMainProdTemplate,
+  getMapperTemplate,
+  getNavigationHelperTemplate,
+  getRemoteDataSourceTemplate,
+  getRepositoryImplTemplate,
+  getRepositoryTemplate,
+  getRouterTemplate,
+  getScreenTemplate,
+  getSharedUseCaseTemplate,
+  getUseCaseTemplate,
+  getUtilsModuleTemplate,
+  getViewDataStateTemplate,
+} from "../templates/index.js";
+import { isNameValid, showInputBox } from "../utils/index.js";
 
 export async function init(context: vscode.ExtensionContext) {
   let generateFolder = vscode.commands.registerCommand("vscode-ext-aldev.init", async (uri: vscode.Uri) => {

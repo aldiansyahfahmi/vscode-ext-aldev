@@ -28,38 +28,14 @@ const changeCase = __importStar(require("change-case"));
 const fs = __importStar(require("fs"));
 const path = __importStar(require("path"));
 const vscode = __importStar(require("vscode"));
-const injections_template_js_1 = require("../templates/di/injections.template.js");
-const remote_datasource_template_js_1 = require("../templates/feature/data/datasources/remote-datasource.template.js");
-const mapper_template_js_1 = require("../templates/feature/data/mapper/mapper.template.js");
-const repository_impl_template_js_1 = require("../templates/feature/data/repositories/repository-impl.template.js");
-const di_template_js_1 = require("../templates/feature/di/di.template.js");
-const repository_template_js_1 = require("../templates/feature/domain/repositories/repository.template.js");
-const usecase_template_js_1 = require("../templates/feature/domain/usecases/usecase.template.js");
-const screen_template_js_1 = require("../templates/feature/presentation/screen/screen.template.js");
-const main_dev_template_js_1 = require("../templates/launcher/main-dev.template.js");
-const main_prod_template_js_1 = require("../templates/launcher/main-prod.template.js");
-const core_module_template_js_1 = require("../templates/shared_libraries/core/di/core-module.template.js");
-const api_interceptors_template_js_1 = require("../templates/shared_libraries/core/network/api-interceptors.template.js");
-const dio_handler_template_js_1 = require("../templates/shared_libraries/core/network/dio-handler.template.js");
-const api_response_template_js_1 = require("../templates/shared_libraries/core/network/models/api-response.template.js");
-const app_constants_template_js_1 = require("../templates/shared_libraries/utils/constants/app-constants.template.js");
-const utils_module_template_js_1 = require("../templates/shared_libraries/utils/di/utils-module.template.js");
-const exception_template_js_1 = require("../templates/shared_libraries/utils/error/exception.template.js");
-const failure_response_template_js_1 = require("../templates/shared_libraries/utils/error/failure-response.template.js");
-const navigation_helper_template_js_1 = require("../templates/shared_libraries/utils/navigation/navigation-helper.template.js");
-const app_routes_template_js_1 = require("../templates/shared_libraries/utils/navigation/router/app-routes.template.js");
-const router_template_js_1 = require("../templates/shared_libraries/utils/navigation/router/router.template.js");
-const app_setup_template_js_1 = require("../templates/shared_libraries/utils/setup/app-setup.template.js");
-const view_data_state_template_js_1 = require("../templates/shared_libraries/utils/state/view-data-state.template.js");
-const usecase_template_js_2 = require("../templates/shared_libraries/utils/usecase/usecase.template.js");
-const is_name_valid_js_1 = require("../utils/is-name-valid.js");
-const show_input_box_js_1 = require("../utils/show-input-box.js");
+const index_js_1 = require("../templates/index.js");
+const index_js_2 = require("../utils/index.js");
 async function init(context) {
     let generateFolder = vscode.commands.registerCommand("vscode-ext-aldev.init", async (uri) => {
         // Menampilkan form input
-        let inputName = await (0, show_input_box_js_1.showInputBox)("Init name");
+        let inputName = await (0, index_js_2.showInputBox)("Init name");
         // Cek apakah inputName valid
-        if (!(0, is_name_valid_js_1.isNameValid)(inputName)) {
+        if (!(0, index_js_2.isNameValid)(inputName)) {
             vscode.window.showErrorMessage("The name must not be empty");
             return;
         }
@@ -67,7 +43,7 @@ async function init(context) {
         const optionsSelected = await vscode.window.showQuickPick(options, {
             placeHolder: "Are you sure you want to init it?",
         });
-        if (!(0, is_name_valid_js_1.isNameValid)(optionsSelected)) {
+        if (!(0, index_js_2.isNameValid)(optionsSelected)) {
             vscode.window.showErrorMessage("The options must not be empty");
             return;
         }
@@ -76,7 +52,7 @@ async function init(context) {
             const stateManagementSelected = await vscode.window.showQuickPick(stateManagementOptions, {
                 placeHolder: "Select State Management",
             });
-            if (!(0, is_name_valid_js_1.isNameValid)(stateManagementSelected)) {
+            if (!(0, index_js_2.isNameValid)(stateManagementSelected)) {
                 vscode.window.showErrorMessage("The state management must not be empty");
                 return;
             }
@@ -173,76 +149,76 @@ async function init(context) {
                     return "// Local Datasource content here\n";
                 }
                 else if (fileName.includes("remote")) {
-                    return (0, remote_datasource_template_js_1.getRemoteDataSourceTemplate)(inputName);
+                    return (0, index_js_1.getRemoteDataSourceTemplate)(inputName);
                 }
                 else if (fileName.includes("mapper")) {
-                    return (0, mapper_template_js_1.getMapperTemplate)(inputName);
+                    return (0, index_js_1.getMapperTemplate)(inputName);
                 }
                 else if (fileName.includes("repository_impl")) {
-                    return (0, repository_impl_template_js_1.getRepositoryImplTemplate)(inputName);
+                    return (0, index_js_1.getRepositoryImplTemplate)(inputName);
                 }
                 else if (fileName.includes("repository")) {
-                    return (0, repository_template_js_1.getRepositoryTemplate)(inputName);
+                    return (0, index_js_1.getRepositoryTemplate)(inputName);
                 }
                 else if (fileName.includes("_usecase")) {
-                    return (0, usecase_template_js_1.getUseCaseTemplate)(inputName);
+                    return (0, index_js_1.getUseCaseTemplate)(inputName);
                 }
                 else if (fileName.includes("screen")) {
-                    return (0, screen_template_js_1.getScreenTemplate)(inputName);
+                    return (0, index_js_1.getScreenTemplate)(inputName);
                 }
                 else if (fileName.includes("dependency")) {
-                    return (0, di_template_js_1.getDiTemplate)(inputName);
+                    return (0, index_js_1.getDiTemplate)(inputName);
                 }
                 else if (fileName.includes("injections")) {
-                    return (0, injections_template_js_1.getInjectionsTemplate)(inputName);
+                    return (0, index_js_1.getInjectionsTemplate)(inputName);
                 }
                 else if (fileName.includes("main_dev")) {
-                    return (0, main_dev_template_js_1.getMainDevTemplate)(inputName);
+                    return (0, index_js_1.getMainDevTemplate)(inputName);
                 }
                 else if (fileName.includes("main_prod")) {
-                    return (0, main_prod_template_js_1.getMainProdTemplate)(inputName);
+                    return (0, index_js_1.getMainProdTemplate)(inputName);
                 }
                 else if (fileName.includes("core_modules")) {
-                    return (0, core_module_template_js_1.getCoreModuleTemplate)(inputName);
+                    return (0, index_js_1.getCoreModuleTemplate)(inputName);
                 }
                 else if (fileName.includes("api_response")) {
-                    return (0, api_response_template_js_1.getApiResponseTemplate)(inputName);
+                    return (0, index_js_1.getApiResponseTemplate)(inputName);
                 }
                 else if (fileName.includes("api_interceptors")) {
-                    return (0, api_interceptors_template_js_1.getApiInterceptorsTemplate)(inputName);
+                    return (0, index_js_1.getApiInterceptorsTemplate)(inputName);
                 }
                 else if (fileName.includes("dio_handler")) {
-                    return (0, dio_handler_template_js_1.getDioHandlerTemplate)(inputName);
+                    return (0, index_js_1.getDioHandlerTemplate)(inputName);
                 }
                 else if (fileName.includes("app_constants")) {
-                    return (0, app_constants_template_js_1.getAppConstantsTemplate)(inputName);
+                    return (0, index_js_1.getAppConstantsTemplate)(inputName);
                 }
                 else if (fileName.includes("utils_module")) {
-                    return (0, utils_module_template_js_1.getUtilsModuleTemplate)(inputName);
+                    return (0, index_js_1.getUtilsModuleTemplate)(inputName);
                 }
                 else if (fileName.includes("exception")) {
-                    return (0, exception_template_js_1.getExceptionTemplate)(inputName);
+                    return (0, index_js_1.getExceptionTemplate)(inputName);
                 }
                 else if (fileName.includes("failure_response")) {
-                    return (0, failure_response_template_js_1.getFailureResponseTemplate)(inputName);
+                    return (0, index_js_1.getFailureResponseTemplate)(inputName);
                 }
                 else if (fileName.includes("app_routes")) {
-                    return (0, app_routes_template_js_1.getAppRoutesTemplate)(inputName);
+                    return (0, index_js_1.getAppRoutesTemplate)(inputName);
                 }
                 else if (fileName.includes("router")) {
-                    return (0, router_template_js_1.getRouterTemplate)(inputName);
+                    return (0, index_js_1.getRouterTemplate)(inputName);
                 }
                 else if (fileName.includes("navigation_helper")) {
-                    return (0, navigation_helper_template_js_1.getNavigationHelperTemplate)(inputName);
+                    return (0, index_js_1.getNavigationHelperTemplate)(inputName);
                 }
                 else if (fileName.includes("app_setup")) {
-                    return (0, app_setup_template_js_1.getAppSetupTemplate)(inputName);
+                    return (0, index_js_1.getAppSetupTemplate)(inputName);
                 }
                 else if (fileName.includes("view_data_state")) {
-                    return (0, view_data_state_template_js_1.getViewDataStateTemplate)(inputName);
+                    return (0, index_js_1.getViewDataStateTemplate)(inputName);
                 }
                 else if (fileName.includes("usecase")) {
-                    return (0, usecase_template_js_2.getSharedUseCaseTemplate)(inputName);
+                    return (0, index_js_1.getSharedUseCaseTemplate)(inputName);
                 }
                 // Default content if no condition matches
                 return "// Default content here\n";

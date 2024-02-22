@@ -1,9 +1,5 @@
 import * as vscode from "vscode";
-import { init } from "./command/init.js";
-import { newBloc } from "./command/new-bloc.js";
-import { newCubit } from "./command/new-cubit.js";
-import { newFeature } from "./command/new-feature.js";
-import { newUseCase } from "./command/new-usecase.js";
+import { init, newBloc, newCubit, newFeature, newUseCase } from "./command";
 
 export function activate(context: vscode.ExtensionContext) {
   console.log('Congratulations, your extension "vscode-ext-aldev" is now active!');
