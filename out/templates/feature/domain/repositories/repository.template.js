@@ -38,7 +38,7 @@ import '../../../../shared_libraries/utils/error/failure_response.dart';
 import '../entities/response/${snakeCase}_response_entity.dart';
 
 abstract class ${pascalCase}Repository {
-  Future<Either<FailureResponse, List<${pascalCase}DataEntity>>> get${pascalCase}s();
+  Future<Either<FailureResponse, List<${pascalCase}DataEntity>>> get${pascalCase}();
 }
 `;
 }
