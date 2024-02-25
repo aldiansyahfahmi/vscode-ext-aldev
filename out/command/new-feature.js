@@ -30,6 +30,8 @@ const path = __importStar(require("path"));
 const vscode = __importStar(require("vscode"));
 const remote_datasource_template_js_1 = require("../templates/feature/data/datasources/remote-datasource.template.js");
 const mapper_template_js_1 = require("../templates/feature/data/mapper/mapper.template.js");
+const response_dto_template_js_1 = require("../templates/feature/data/models/response/response-dto.template.js");
+const response_entity_template_js_1 = require("../templates/feature/data/models/response/response-entity.template.js");
 const repository_impl_template_js_1 = require("../templates/feature/data/repositories/repository-impl.template.js");
 const di_template_js_1 = require("../templates/feature/di/di.template.js");
 const repository_template_js_1 = require("../templates/feature/domain/repositories/repository.template.js");
@@ -66,14 +68,24 @@ async function newFeature(context) {
                         local: { files: [`${snakeCase}_local_datasource.dart`] },
                     },
                     mapper: { files: [`${snakeCase}_mapper.dart`] },
-                    models: { body: {}, response: {} },
+                    models: {
+                        body: {},
+                        response: {
+                            files: [`${snakeCase}_response_dto.dart`],
+                        },
+                    },
                     repositories: { files: [`${snakeCase}_repository_impl.dart`] },
                 },
                 di: {
                     files: [`${snakeCase}_dependency.dart`],
                 },
                 domain: {
-                    entities: { body: {}, response: {} },
+                    entities: {
+                        body: {},
+                        response: {
+                            files: [`${snakeCase}_response_entity.dart`],
+                        },
+                    },
                     repositories: { files: [`${snakeCase}_repository.dart`] },
                     usecases: { files: [`${snakeCase}_usecase.dart`] },
                 },
@@ -115,6 +127,12 @@ async function newFeature(context) {
             }
             else if (fileName.includes("dependency")) {
                 return (0, di_template_js_1.getDiTemplate)(inputName);
+            }
+            else if (fileName.includes("dto")) {
+                return (0, response_dto_template_js_1.getResponseDtoTemplate)(inputName);
+            }
+            else if (fileName.includes("entity")) {
+                return (0, response_entity_template_js_1.getResponseEntityTemplate)(inputName);
             }
             // Default content if no condition matches
             return "// Default content here\n";

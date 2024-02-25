@@ -4,6 +4,8 @@ import * as path from "path";
 import * as vscode from "vscode";
 import { getRemoteDataSourceTemplate } from "../templates/feature/data/datasources/remote-datasource.template.js";
 import { getMapperTemplate } from "../templates/feature/data/mapper/mapper.template.js";
+import { getResponseDtoTemplate } from "../templates/feature/data/models/response/response-dto.template.js";
+import { getResponseEntityTemplate } from "../templates/feature/data/models/response/response-entity.template.js";
 import { getRepositoryImplTemplate } from "../templates/feature/data/repositories/repository-impl.template.js";
 import { getDiTemplate } from "../templates/feature/di/di.template.js";
 import { getRepositoryTemplate } from "../templates/feature/domain/repositories/repository.template.js";
@@ -46,14 +48,24 @@ export async function newFeature(context: vscode.ExtensionContext) {
             local: { files: [`${snakeCase}_local_datasource.dart`] },
           },
           mapper: { files: [`${snakeCase}_mapper.dart`] },
-          models: { body: {}, response: {} },
+          models: {
+            body: {},
+            response: {
+              files: [`${snakeCase}_response_dto.dart`],
+            },
+          },
           repositories: { files: [`${snakeCase}_repository_impl.dart`] },
         },
         di: {
           files: [`${snakeCase}_dependency.dart`],
         },
         domain: {
-          entities: { body: {}, response: {} },
+          entities: {
+            body: {},
+            response: {
+              files: [`${snakeCase}_response_entity.dart`],
+            },
+          },
           repositories: { files: [`${snakeCase}_repository.dart`] },
           usecases: { files: [`${snakeCase}_usecase.dart`] },
         },
@@ -90,6 +102,10 @@ export async function newFeature(context: vscode.ExtensionContext) {
         return getScreenTemplate(inputName!);
       } else if (fileName.includes("dependency")) {
         return getDiTemplate(inputName!);
+      } else if (fileName.includes("dto")) {
+        return getResponseDtoTemplate(inputName!);
+      } else if (fileName.includes("entity")) {
+        return getResponseEntityTemplate(inputName!);
       }
       // Default content if no condition matches
       return "// Default content here\n";

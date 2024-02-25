@@ -6,7 +6,10 @@ function getFailureResponseTemplate(name) {
 }
 exports.getFailureResponseTemplate = getFailureResponseTemplate;
 function template(name) {
-    return `import 'package:equatable/equatable.dart';
+    return `import 'package:dio/dio.dart';
+import 'package:equatable/equatable.dart';
+
+import '../constants/app_constants.dart';
 
 class FailureResponse extends Equatable {
   final String errorMessage;
@@ -16,6 +19,15 @@ class FailureResponse extends Equatable {
     required this.errorMessage,
     required this.statusCode,
   });
+
+    static FailureResponse dio(DioException error) {
+    return FailureResponse(
+      errorMessage:
+          error.response?.data[AppConstants.errorKey.message]?.toString() ??
+              error.response.toString(),
+      statusCode: error.response?.statusCode ?? 500,
+    );
+  }
 
   @override
   List<Object?> get props => [errorMessage, statusCode];

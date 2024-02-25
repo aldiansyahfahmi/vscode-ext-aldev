@@ -36,7 +36,6 @@ function template(name) {
     return `import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 
-import '../../../../app/shared_libraries/core/model/api_response.dart';
 import '../../../../shared_libraries/utils/error/failure_response.dart';
 import '../../domain/repositories/${snakeCase}_repository.dart';
 import '../datasources/remote/${snakeCase}_remote_datasource.dart';
