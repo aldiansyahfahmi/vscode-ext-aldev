@@ -15,7 +15,7 @@ import '../../../../../shared_libraries/utils/constants/app_constants.dart';
 import '../../models/response/${snakeCase}_response_dto.dart';
 
 abstract class ${pascalCase}RemoteDataSource {
-  Future<ApiResponse<List<${pascalCase}DataDto>>> get${pascalCase}s();
+  Future<ApiResponse<List<${pascalCase}DataDto>>> get${pascalCase}();
 }
 
 class ${pascalCase}RemoteDataSourceImpl implements ${pascalCase}RemoteDataSource {

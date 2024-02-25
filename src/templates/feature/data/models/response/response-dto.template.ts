@@ -7,7 +7,9 @@ export function getResponseDtoTemplate(name: string): string {
 function template(name: string): string {
   const pascalCase = changeCase.pascalCase(name.toLowerCase());
   return `class ${pascalCase}DataDto {
-    
+
+    factory ${pascalCase}DataDto.fromJson(Map<String, dynamic> json) =>
+        {}
   }
 `;
 }

@@ -28,9 +28,9 @@ class ${pascalCase}RepositoryImpl implements ${pascalCase}Repository {
 
     @override
   Future<Either<FailureResponse, List<${pascalCase}DataEntity>>>
-      get${pascalCase}s() async {
+      get${pascalCase}() async {
     try {
-      final response = await ${camelCase}RemoteDataSource.get${pascalCase}s();
+      final response = await ${camelCase}RemoteDataSource.get${pascalCase}();
       return Right(
           ${camelCase}Mapper.mapList${pascalCase}DataDtoToEntity(response.data!));
     } on DioException catch (error) {
