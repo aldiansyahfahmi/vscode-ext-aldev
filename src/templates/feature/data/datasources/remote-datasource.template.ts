@@ -7,6 +7,7 @@ export function getRemoteDataSourceTemplate(name: string): string {
 function template(name: string): string {
   const pascalCase = changeCase.pascalCase(name.toLowerCase());
   const snakeCase = changeCase.snakeCase(name.toLowerCase());
+  const camelCase = changeCase.camelCase(name.toLowerCase());
   return `import 'package:dio/dio.dart';
 
 import '../../../../../shared_libraries/core/network/models/api_response.dart';
@@ -25,7 +26,7 @@ class ${pascalCase}RemoteDataSourceImpl implements ${pascalCase}RemoteDataSource
   @override
   Future<ApiResponse<List<${pascalCase}DataDto>>> get${pascalCase}s() async {
     try {
-      final response = await dio.get(AppConstants.appApi.{{name.camelCase()}});
+      final response = await dio.get(AppConstants.appApi.${camelCase});
       return ApiResponse.fromJson(
         response.data,
         onDataDeserialized: (json) => List<${pascalCase}DataDto>.from(
