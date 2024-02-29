@@ -49,7 +49,7 @@ class ${pascalCase}RemoteDataSourceImpl implements ${pascalCase}RemoteDataSource
   ${pascalCase}RemoteDataSourceImpl({required this.dio});
 
   @override
-  Future<ApiResponse<List<${pascalCase}DataDto>>> get${pascalCase}s() async {
+  Future<ApiResponse<List<${pascalCase}DataDto>>> get${pascalCase}() async {
     try {
       final response = await dio.get(AppConstants.appApi.${camelCase});
       return ApiResponse.fromJson(

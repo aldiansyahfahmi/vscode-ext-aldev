@@ -36,33 +36,46 @@
       {
         "command": "vscode-ext-aldev.init",
         "title": "Aldev: Init"
+      },
+      {
+        "command": "vscode-ext-aldev.newDomain",
+        "title": "Aldev: New Domain"
+      },
+      {
+        "command": "vscode-ext-aldev.newPresentation",
+        "title": "Aldev: New Presentation"
       }
     ],
     "menus": {
       "explorer/context": [
         {
+          "command": "vscode-ext-aldev.init",
+          "group": "group1@1",
+          "when": "explorerResourceIsFolder"
+        },
+        {
           "command": "vscode-ext-aldev.newFeature",
-          "group": "aldev@1",
+          "group": "group2@1",
+          "when": "explorerResourceIsFolder"
+        },
+        {
+          "command": "vscode-ext-aldev.newDomain",
+          "group": "group2@2",
+          "when": "explorerResourceIsFolder"
+        },
+        {
+          "command": "vscode-ext-aldev.newPresentation",
+          "group": "group2@3",
           "when": "explorerResourceIsFolder"
         },
         {
           "command": "vscode-ext-aldev.newCubit",
-          "group": "aldev@2",
+          "group": "group3@1",
           "when": "explorerResourceIsFolder"
         },
         {
           "command": "vscode-ext-aldev.newBloc",
-          "group": "aldev@3",
-          "when": "explorerResourceIsFolder"
-        },
-        {
-          "command": "vscode-ext-aldev.newUseCase",
-          "group": "aldev@4",
-          "when": "explorerResourceIsFolder"
-        },
-        {
-          "command": "vscode-ext-aldev.init",
-          "group": "aldev@5",
+          "group": "group3@2",
           "when": "explorerResourceIsFolder"
         }
       ]

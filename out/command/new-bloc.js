@@ -44,10 +44,8 @@ async function newBloc(context) {
         // Uri menyediakan path ke folder yang diklik kanan
         const basePath = uri.fsPath;
         function create(basePath, folderName, files) {
-            // Path untuk daftar bloc
-            const bloc = path.join(basePath, "bloc");
             // Path untuk cubit baru
-            const folderPath = path.join(bloc, `${folderName}_bloc`);
+            const folderPath = path.join(basePath, `${folderName}_bloc`);
             // Membuat folder jika belum ada
             if (!fs.existsSync(folderPath)) {
                 fs.mkdirSync(folderPath, { recursive: true });

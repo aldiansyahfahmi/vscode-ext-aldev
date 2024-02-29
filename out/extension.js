@@ -26,6 +26,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.deactivate = exports.activate = void 0;
 const vscode = __importStar(require("vscode"));
 const command_1 = require("./command");
+const new_domain_1 = require("./command/new-domain");
+const new_presentation_1 = require("./command/new-presentation");
 function activate(context) {
     console.log('Congratulations, your extension "vscode-ext-aldev" is now active!');
     let disposable = vscode.commands.registerCommand("vscode-ext-aldev.helloWorld", () => {
@@ -37,6 +39,8 @@ function activate(context) {
     (0, command_1.newBloc)(context);
     (0, command_1.newUseCase)(context);
     (0, command_1.init)(context);
+    (0, new_domain_1.newDomain)(context);
+    (0, new_presentation_1.newPresentation)(context);
 }
 exports.activate = activate;
 // This method is called when your extension is deactivated

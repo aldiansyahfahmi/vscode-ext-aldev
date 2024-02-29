@@ -42,6 +42,26 @@ export async function init(context: vscode.ExtensionContext) {
       return;
     }
 
+    const initTypeOptions = ["Features", "Domain-Presentation"];
+    const initTypeSelected = await vscode.window.showQuickPick(initTypeOptions, {
+      placeHolder: "Select Init Type",
+    });
+
+    if (!isNameValid(initTypeSelected)) {
+      vscode.window.showErrorMessage("The options must not be empty");
+      return;
+    }
+
+    const stateManagementOptions = ["Bloc", "Riverpod"];
+    const stateManagementSelected = await vscode.window.showQuickPick(stateManagementOptions, {
+      placeHolder: "Select State Management",
+    });
+
+    if (!isNameValid(stateManagementSelected)) {
+      vscode.window.showErrorMessage("The state management must not be empty");
+      return;
+    }
+
     const options = ["No", "Yes"];
     const optionsSelected = await vscode.window.showQuickPick(options, {
       placeHolder: "Are you sure you want to init it?",
@@ -53,22 +73,12 @@ export async function init(context: vscode.ExtensionContext) {
     }
 
     if (optionsSelected == "Yes") {
-      const stateManagementOptions = ["Bloc", "Riverpod"];
-      const stateManagementSelected = await vscode.window.showQuickPick(stateManagementOptions, {
-        placeHolder: "Select State Management",
-      });
-
-      if (!isNameValid(stateManagementSelected)) {
-        vscode.window.showErrorMessage("The state management must not be empty");
-        return;
-      }
-
       // Uri menyediakan path ke folder yang diklik kanan
       const basePath = uri.fsPath;
 
       // Struktur folder utama dan subfolder
       const snakeCase = changeCase.snakeCase(inputName!.toLowerCase());
-      const structure = {
+      const structureFeatures = {
         app: {
           files: [`main_app.dart`],
         },
@@ -101,6 +111,85 @@ export async function init(context: vscode.ExtensionContext) {
               [stateManagementSelected! == "Riverpod" ? "provider" : stateManagementSelected!.toLowerCase()]: {},
               screen: { files: [`${snakeCase}_screen.dart`] },
             },
+          },
+        },
+        shared_libraries: {
+          component: {},
+          core: {
+            di: {
+              files: ["core_modules.dart"],
+            },
+            network: {
+              models: {
+                files: ["api_response.dart"],
+              },
+              files: ["api_interceptors.dart", "dio_handler.dart"],
+            },
+          },
+          utils: {
+            constants: {
+              files: ["app_constants.dart"],
+            },
+            di: {
+              files: ["utils_modules.dart"],
+            },
+            error: {
+              files: ["exception.dart", "failure_response.dart"],
+            },
+            navigation: {
+              router: {
+                files: ["app_routes.dart", `${snakeCase}_router.dart`],
+              },
+              files: ["navigation_helper.dart"],
+            },
+            setup: {
+              files: ["app_setup.dart"],
+            },
+            state: {
+              files: ["view_data_state.dart"],
+            },
+            usecase: {
+              files: ["usecase.dart"],
+            },
+          },
+        },
+      };
+
+      const structureDomainPresentation = {
+        app: {
+          files: [`main_app.dart`],
+        },
+        di: {
+          files: [`injections.dart`],
+        },
+        launcher: {
+          files: [`main_dev.dart`, `main_prod.dart`],
+        },
+        domain: {
+          [inputName!]: {
+            data: {
+              datasources: {
+                remote: { files: [`${snakeCase}_remote_datasource.dart`] },
+                local: { files: [`${snakeCase}_local_datasource.dart`] },
+              },
+              mapper: { files: [`${snakeCase}_mapper.dart`] },
+              models: { body: {}, response: {} },
+              repositories: { files: [`${snakeCase}_repository_impl.dart`] },
+            },
+            di: {
+              files: [`${snakeCase}_dependency.dart`],
+            },
+            domain: {
+              entities: { body: {}, response: {} },
+              repositories: { files: [`${snakeCase}_repository.dart`] },
+              usecases: { files: [`${snakeCase}_usecase.dart`] },
+            },
+          },
+        },
+        presentation: {
+          [inputName!]: {
+            [stateManagementSelected! == "Riverpod" ? "provider" : stateManagementSelected!.toLowerCase()]: {},
+            screen: { files: [`${snakeCase}_screen.dart`] },
           },
         },
         shared_libraries: {
@@ -245,7 +334,7 @@ export async function init(context: vscode.ExtensionContext) {
       }
 
       // Membuat struktur folder
-      create(basePath, structure);
+      create(basePath, initTypeSelected == "Features" ? structureFeatures : structureDomainPresentation);
 
       vscode.window.showInformationMessage("Init successfully!");
     } else {

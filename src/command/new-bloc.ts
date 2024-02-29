@@ -21,11 +21,8 @@ export async function newBloc(context: vscode.ExtensionContext) {
     const basePath = uri.fsPath;
 
     function create(basePath: string, folderName: string, files: { name: string; content: string }[]) {
-      // Path untuk daftar bloc
-      const bloc = path.join(basePath, "bloc");
-
       // Path untuk cubit baru
-      const folderPath = path.join(bloc, `${folderName}_bloc`);
+      const folderPath = path.join(basePath, `${folderName}_bloc`);
 
       // Membuat folder jika belum ada
       if (!fs.existsSync(folderPath)) {
