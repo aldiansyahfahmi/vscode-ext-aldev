@@ -3,6 +3,7 @@ import * as fs from "fs";
 import * as path from "path";
 import * as vscode from "vscode";
 
+import { getMainAppTemplate } from "../templates/app/main-app.template.js";
 import {
   getApiInterceptorsTemplate,
   getApiResponseTemplate,
@@ -262,6 +263,8 @@ export async function init(context: vscode.ExtensionContext) {
           return getDiTemplate(inputName!);
         } else if (fileName.includes("injections")) {
           return getInjectionsTemplate(inputName!);
+        } else if (fileName.includes("main_app")) {
+          return getMainAppTemplate(inputName!);
         } else if (fileName.includes("main_dev")) {
           return getMainDevTemplate(inputName!);
         } else if (fileName.includes("main_prod")) {
