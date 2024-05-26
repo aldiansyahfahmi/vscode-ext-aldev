@@ -80,60 +80,61 @@ extension ObservingState<T> on ViewData<T> {
     Widget? onEmpty,
   }) {
     if (status.isLoading) {
-      return onLoading ?? const Center(child: CircularProgressIndicator());
+      return onLoading ??
+          const Center(
+            child: CustomCircularProgressIndicator(),
+          );
     } else if (status.isError) {
       return onError != null
-          ? onError(failure!.errorMessage)
+          ? onError(failure!)
           : Center(child: Text(failure!.errorMessage));
     } else if (status.isHasData) {
-      if (status.isNoData) {
-        return onEmpty ?? const SizedBox();
-      } else {
-        return widget(data);
-      }
+      return widget(data);
+    } else if (status.isNoData) {
+      return onEmpty ?? const SizedBox();
     } else {
       return const SizedBox();
     }
   }
 }
 
-// extension ObservingStateFunction<T> on ViewData<T> {
-//   void listen({
-//     required BuildContext context,
-//     required Function(T? data) isHasData,
-//     Function? isError,
-//     Function? isLoading,
-//     Function? isNoData,
-//   }) {
-//     if (status.isLoading) {
-//       if (isLoading != null) {
-//         isLoading();
-//       } else {
-//         LoadingStack.show(context);
-//       }
-//     } else if (status.isError) {
-//       if (isError != null) {
-//         isError();
-//       } else {
-//         LoadingStack.dismiss(context);
-//         CustomDialog.show(
-//           context: context,
-//           type: DialogType.failed,
-//           title: 'Oops!',
-//           subTitle: message,
-//           buttonText: 'Oke',
-//           onTap: () => Navigator.pop(context),
-//         );
-//       }
-//     } else if (status.isHasData) {
-//       isHasData(data);
-//     } else if (status.isNoData) {
-//       if (isNoData != null) {
-//         isNoData();
-//       }
-//     } else {}
-//   }
-// }
+extension ObservingStateFunction<T> on ViewData<T> {
+  void listener({
+    required BuildContext context,
+    required Function(T? data) isHasData,
+    Function? isError,
+    Function? isLoading,
+    Function? isNoData,
+  }) {
+    if (status.isLoading) {
+      if (isLoading != null) {
+        isLoading();
+      } else {
+        LoadingStack.show(context);
+      }
+    } else if (status.isError) {
+      if (isError != null) {
+        isError();
+      } else {
+        LoadingStack.dismiss(context);
+        CustomDialog.show(
+          context: context,
+          type: DialogType.failed,
+          title: 'Oops!',
+          subTitle: message,
+          buttonText: 'Oke',
+          onTap: () => Navigator.pop(context),
+        );
+      }
+    } else if (status.isHasData) {
+      isHasData(data);
+    } else if (status.isNoData) {
+      if (isNoData != null) {
+        isNoData();
+      }
+    } else {}
+  }
+}
 
 `;
 }

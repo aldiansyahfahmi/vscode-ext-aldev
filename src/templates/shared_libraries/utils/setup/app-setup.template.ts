@@ -36,6 +36,14 @@ class Config {
       return AppConstants.appApi.baseUrlDevelopment;
     }
   }
+
+  static String get appName {
+    if (appFlavor == Flavor.prod) {
+      return AppConstants.app.prodName;
+    } else {
+      return AppConstants.app.devName;
+    }
+  }  
 }
 `;
 }

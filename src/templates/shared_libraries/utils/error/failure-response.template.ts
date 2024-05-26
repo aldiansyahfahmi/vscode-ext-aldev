@@ -18,10 +18,24 @@ class FailureResponse extends Equatable {
   });
 
     static FailureResponse dio(DioException error) {
+    String message() {
+      if (error.type == DioExceptionType.connectionError) {
+        return 'Connection Error, Try Again';
+      } else if (error.type == DioExceptionType.connectionTimeout) {
+        return 'Connection Timeout, Try Again';
+      } else if (error.type == DioExceptionType.receiveTimeout) {
+        return 'Receive Timeout, Try Again';
+      } else if (error.type == DioExceptionType.sendTimeout) {
+        return 'Send Timeout, Try Again';
+      } else {
+        return 'Something went wrong, Try Again';
+      }
+    }
+
     return FailureResponse(
       errorMessage:
           error.response?.data[AppConstants.errorKey.message]?.toString() ??
-              error.response.toString(),
+              message(),
       statusCode: error.response?.statusCode ?? 500,
     );
   }

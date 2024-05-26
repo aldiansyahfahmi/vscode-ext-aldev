@@ -4,12 +4,15 @@ export function getMainAppTemplate(name: string): string {
 
 function template(name: string): string {
   return `import 'package:flutter/material.dart';
-import 'package:muslim_app/presentation/splash/screen/splash_screen.dart';
-import 'package:muslim_app/shared_libraries/utils/navigation/navigation_helper.dart';
-import 'package:muslim_app/shared_libraries/utils/navigation/router/app_routes.dart';
-import 'package:muslim_app/shared_libraries/utils/resources/colors.gen.dart';
-import 'package:muslim_app/shared_libraries/utils/resources/fonts.gen.dart';
-import 'package:muslim_app/shared_libraries/utils/setup/app_setup.dart';
+
+import '../di/injections.dart';
+import '../presentation/main/ui/main_screen.dart';
+import '../presentation/splash/bloc/splash_cubit/splash_cubit.dart';
+import '../presentation/splash/ui/splash_screen.dart';
+import '../shared_libraries/utils/navigation/navigation_helper.dart';
+import '../shared_libraries/utils/navigation/router/app_routes.dart';
+import '../shared_libraries/utils/setup/app_setup.dart';
+import '../shared_libraries/utils/style/colors.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -21,19 +24,30 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: Config.isDebug,
       theme: ThemeData(
         scaffoldBackgroundColor: ColorName.white,
-        fontFamily: FontFamily.poppins,
+        fontFamily: FontFamily.nunito,
       ),
-      home: const SplashScreen(),
+      home: BlocProvider(
+        create: (context) => SplashCubit(
+          getUserDataUseCase: sl(),
+        )..initSplash(),
+        child: SplashScreen(),
+      ),
       navigatorKey: NavigationHelperImpl.navigatorKey,
       onGenerateRoute: (settings) {
         switch (settings.name) {
-          case AppRoutes.splash:
+          case AppRoutes.main:
             return MaterialPageRoute(
-              builder: (context) => const SplashScreen(),
+              builder: (context) => const MainScreen(),
             );
           default:
+            return MaterialPageRoute(
+              builder: (context) => const Scaffold(
+                body: Center(
+                  child: Text('Route Tidak Ditemukan'),
+                ),
+              ),
+            );
         }
-        return null;
       },
     );
   }

@@ -4,7 +4,8 @@ export function getAppRoutesTemplate(name: string): string {
 
 function template(name: string): string {
   return `class AppRoutes {
-  static const String splash = '/${name.toLocaleLowerCase()}';
+  static const String main = '/main';
+  static const String signIn = '/sign-in';
 }
 
 `;

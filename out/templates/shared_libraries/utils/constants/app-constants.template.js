@@ -20,6 +20,8 @@ class App {
   const App();
 
   double get defaultMargin => 16.0;
+  String get devName => 'Dev App';
+  String get prodName => 'App';
 }
 
 class CachedKey {

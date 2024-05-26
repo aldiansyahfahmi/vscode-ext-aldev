@@ -4,6 +4,7 @@ export function getNavigationHelperTemplate(name: string): string {
 
 function template(name: string): string {
   return `import 'package:flutter/material.dart';
+import '../../core/network/dio_handler.dart';
 
 abstract class NavigationHelper {
   Future<dynamic>? pushNamed(
@@ -25,7 +26,7 @@ abstract class NavigationHelper {
 }
 
 class NavigationHelperImpl extends NavigationHelper {
-  static final navigatorKey = GlobalKey<NavigatorState>();
+  static final navigatorKey = alice.getNavigatorKey();
 
   @override
   Future<dynamic>? pushNamed(
