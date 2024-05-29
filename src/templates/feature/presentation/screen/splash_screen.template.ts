@@ -9,6 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../di/injections.dart';
 import '../../../shared_libraries/component/scaffold/custom_scaffold.dart';
 import '../../../shared_libraries/utils/navigation/router/splash_router.dart';
+import '../../../shared_libraries/utils/state/view_data_state.dart';
 import '../bloc/splash_cubit/splash_cubit.dart';
 import '../bloc/splash_cubit/splash_state.dart';
 

@@ -7,6 +7,7 @@ function template(name: string): string {
 import 'package:dio/dio.dart';
 import 'api_interceptors.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../../utils/setup/app_setup.dart';
 
 Alice alice = Alice(
   showNotification: Config.isDebug,

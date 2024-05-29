@@ -6,6 +6,9 @@ function template(name: string): string {
   return `import 'package:flutter/material.dart';
 import '../error/failure_response.dart';
 import 'package:equatable/equatable.dart';
+import '../../component/loading/custom_circular_progress_indicator.dart';
+import '../../component/loading/loading_stack.dart';
+import '../../component/dialog/custom_dialog.dart';
 
 enum ViewState { initial, loading, error, hasData, noData }
 
@@ -86,7 +89,7 @@ extension ObservingState<T> on ViewData<T> {
           );
     } else if (status.isError) {
       return onError != null
-          ? onError(failure!)
+          ? onError(failure!.errorMessage)
           : Center(child: Text(failure!.errorMessage));
     } else if (status.isHasData) {
       return widget(data);

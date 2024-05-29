@@ -26,7 +26,7 @@ abstract class NavigationHelper {
 }
 
 class NavigationHelperImpl extends NavigationHelper {
-  static final navigatorKey = alice.getNavigatorKey();
+  static final navigatorKey = alice.getNavigatorKey()!;
 
   @override
   Future<dynamic>? pushNamed(

@@ -8,6 +8,7 @@ exports.getUtilsModuleTemplate = getUtilsModuleTemplate;
 function template(name) {
     return `import '../../../di/injections.dart';
 import '../navigation/navigation_helper.dart';
+import '../navigation/router/splash_router.dart';
 
 class RegisterUtilsModule {
   RegisterUtilsModule() {
@@ -19,7 +20,13 @@ class RegisterUtilsModule {
         () => NavigationHelperImpl(),
       );
 
-  void _routers() {}
+  void _routers() {
+    sl.registerLazySingleton<SplashRouter>(
+      () => SplashRouterImpl(
+        navigationHelper: sl(),
+      ),
+    );    
+  }
 }
 
 `;

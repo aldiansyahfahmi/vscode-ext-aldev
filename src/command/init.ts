@@ -32,6 +32,12 @@ import {
   getUtilsModuleTemplate,
   getViewDataStateTemplate,
 } from "../templates/index.js";
+import { getCustomButtonTemplate } from "../templates/shared_libraries/component/custom_button.template.js";
+import { getCustomCircularProgressIndicatorTemplate } from "../templates/shared_libraries/component/custom_circular_progress_indicator.template.js";
+import { getCustomDialogTemplate } from "../templates/shared_libraries/component/custom_dialog.template.js";
+import { getCustomScaffoldTemplate } from "../templates/shared_libraries/component/custom_scaffold.template.js";
+import { getLoadingStackTemplate } from "../templates/shared_libraries/component/loading_stack.template.js";
+import { getShimmerLoadingTemplate } from "../templates/shared_libraries/component/shimmer_loading.template.js";
 import { getCachedUserDataTemplate } from "../templates/shared_libraries/core/local/models/cached-user-data.template.js";
 import { getNetworkCubitTemplate } from "../templates/shared_libraries/utils/bloc/network_cubit/network-cubit.template.js";
 import { getCachedHelperTemplate } from "../templates/shared_libraries/utils/helper/cached-helper.template.js";
@@ -210,7 +216,20 @@ export async function init(context: vscode.ExtensionContext) {
           },
         },
         shared_libraries: {
-          component: {},
+          component: {
+            button: {
+              files: [`custom_button.dart`],
+            },
+            dialog: {
+              files: [`custom_dialog.dart`],
+            },
+            loading: {
+              files: [`custom_circular_progress_indicator.dart`, `loading_stack.dart`, `shimmer_loading.dart`],
+            },
+            scaffold: {
+              files: [`custom_scaffold.dart`],
+            },
+          },
           core: {
             di: {
               files: ["core_modules.dart"],
@@ -345,6 +364,18 @@ export async function init(context: vscode.ExtensionContext) {
           return getSplashScreenTemplate("splash");
         } else if (fileName.includes("colors")) {
           return getColorsTemplate("splash");
+        } else if (fileName.includes("custom_button")) {
+          return getCustomButtonTemplate();
+        } else if (fileName.includes("custom_dialog")) {
+          return getCustomDialogTemplate();
+        } else if (fileName.includes("custom_circular_progress_indicator")) {
+          return getCustomCircularProgressIndicatorTemplate();
+        } else if (fileName.includes("loading_stack")) {
+          return getLoadingStackTemplate();
+        } else if (fileName.includes("shimmer_loading")) {
+          return getShimmerLoadingTemplate();
+        } else if (fileName.includes("custom_scaffold")) {
+          return getCustomScaffoldTemplate();
         }
         // Default content if no condition matches
         return "// Default content here\n";

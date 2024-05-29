@@ -33,6 +33,12 @@ const splash_cubit_template_js_1 = require("../templates/feature/presentation/bl
 const splash_state_template_js_1 = require("../templates/feature/presentation/bloc/splash_cubit/splash_state.template.js");
 const splash_screen_template_js_1 = require("../templates/feature/presentation/screen/splash_screen.template.js");
 const index_js_1 = require("../templates/index.js");
+const custom_button_template_js_1 = require("../templates/shared_libraries/component/custom_button.template.js");
+const custom_circular_progress_indicator_template_js_1 = require("../templates/shared_libraries/component/custom_circular_progress_indicator.template.js");
+const custom_dialog_template_js_1 = require("../templates/shared_libraries/component/custom_dialog.template.js");
+const custom_scaffold_template_js_1 = require("../templates/shared_libraries/component/custom_scaffold.template.js");
+const loading_stack_template_js_1 = require("../templates/shared_libraries/component/loading_stack.template.js");
+const shimmer_loading_template_js_1 = require("../templates/shared_libraries/component/shimmer_loading.template.js");
 const cached_user_data_template_js_1 = require("../templates/shared_libraries/core/local/models/cached-user-data.template.js");
 const network_cubit_template_js_1 = require("../templates/shared_libraries/utils/bloc/network_cubit/network-cubit.template.js");
 const cached_helper_template_js_1 = require("../templates/shared_libraries/utils/helper/cached-helper.template.js");
@@ -200,7 +206,20 @@ async function init(context) {
                     },
                 },
                 shared_libraries: {
-                    component: {},
+                    component: {
+                        button: {
+                            files: [`custom_button.dart`],
+                        },
+                        dialog: {
+                            files: [`custom_dialog.dart`],
+                        },
+                        loading: {
+                            files: [`custom_circular_progress_indicator.dart`, `loading_stack.dart`, `shimmer_loading.dart`],
+                        },
+                        scaffold: {
+                            files: [`custom_scaffold.dart`],
+                        },
+                    },
                     core: {
                         di: {
                             files: ["core_modules.dart"],
@@ -366,6 +385,24 @@ async function init(context) {
                 }
                 else if (fileName.includes("colors")) {
                     return (0, colors_template_js_1.getColorsTemplate)("splash");
+                }
+                else if (fileName.includes("custom_button")) {
+                    return (0, custom_button_template_js_1.getCustomButtonTemplate)();
+                }
+                else if (fileName.includes("custom_dialog")) {
+                    return (0, custom_dialog_template_js_1.getCustomDialogTemplate)();
+                }
+                else if (fileName.includes("custom_circular_progress_indicator")) {
+                    return (0, custom_circular_progress_indicator_template_js_1.getCustomCircularProgressIndicatorTemplate)();
+                }
+                else if (fileName.includes("loading_stack")) {
+                    return (0, loading_stack_template_js_1.getLoadingStackTemplate)();
+                }
+                else if (fileName.includes("shimmer_loading")) {
+                    return (0, shimmer_loading_template_js_1.getShimmerLoadingTemplate)();
+                }
+                else if (fileName.includes("custom_scaffold")) {
+                    return (0, custom_scaffold_template_js_1.getCustomScaffoldTemplate)();
                 }
                 // Default content if no condition matches
                 return "// Default content here\n";
