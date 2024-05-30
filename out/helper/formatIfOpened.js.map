@@ -1,0 +1,1 @@
+{"version":3,"file":"formatIfOpened.js","sourceRoot":"","sources":["../../src/helper/formatIfOpened.ts"],"names":[],"mappings":";;;;;;;;;;;;;;;;;;;;;;;;;;AAAA,+CAAiC;AAGjC,SAAgB,cAAc,CAAC,OAAuB;IACpD,IAAI,OAAO,CAAC,YAAY,EAAE,CAAC;QACzB,MAAM,CAAC,QAAQ,CAAC,cAAc,CAAC,8BAA8B,CAAC,CAAC;IACjE,CAAC;AACH,CAAC;AAJD,wCAIC"}

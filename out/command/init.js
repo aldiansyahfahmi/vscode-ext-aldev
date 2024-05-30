@@ -24,7 +24,6 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.init = void 0;
-const child_process_1 = require("child_process");
 const fs = __importStar(require("fs"));
 const path = __importStar(require("path"));
 const vscode = __importStar(require("vscode"));
@@ -46,6 +45,7 @@ const splash_router_template_js_1 = require("../templates/shared_libraries/utils
 const colors_template_js_1 = require("../templates/shared_libraries/utils/style/colors.template.js");
 const typography_template_js_1 = require("../templates/shared_libraries/utils/style/typography.template.js");
 const index_js_2 = require("../utils/index.js");
+const addDependency_js_1 = require("./addDependency.js");
 async function init(context) {
     let generateFolder = vscode.commands.registerCommand("vscode-ext-aldev.init", async (uri) => {
         // // Menampilkan form input
@@ -441,16 +441,8 @@ async function init(context) {
             }
             // Membuat struktur folder
             // create(basePath, initTypeSelected == "Features" ? structureFeatures : structureDomainPresentation);
-            const child = (0, child_process_1.spawn)("flutter", ["pub", "add"]);
-            child.stdout.on("data", (data) => {
-                console.log(data.toString());
-            });
-            child.stderr.on("data", (data) => {
-                console.error(data.toString());
-            });
-            child.on("close", (code) => {
-                vscode.window.showInformationMessage(`Package added successfully!`);
-            });
+            (0, addDependency_js_1.addDependency)("dependencies");
+            (0, addDependency_js_1.addDependency)("dev_dependencies");
             create(basePath, structureDomainPresentation);
             vscode.window.showInformationMessage("Init successfully!");
         }

@@ -1,4 +1,3 @@
-import { spawn } from "child_process";
 import * as fs from "fs";
 import * as path from "path";
 import * as vscode from "vscode";
@@ -45,6 +44,7 @@ import { getSplashRouterTemplate } from "../templates/shared_libraries/utils/nav
 import { getColorsTemplate } from "../templates/shared_libraries/utils/style/colors.template.js";
 import { getSharedTypographyTemplate } from "../templates/shared_libraries/utils/style/typography.template.js";
 import { isNameValid } from "../utils/index.js";
+import { addDependency } from "./addDependency.js";
 
 export async function init(context: vscode.ExtensionContext) {
   let generateFolder = vscode.commands.registerCommand("vscode-ext-aldev.init", async (uri: vscode.Uri) => {
@@ -418,19 +418,8 @@ export async function init(context: vscode.ExtensionContext) {
       // Membuat struktur folder
       // create(basePath, initTypeSelected == "Features" ? structureFeatures : structureDomainPresentation);
 
-      const child = spawn("flutter", ["pub", "add"]);
-
-      child.stdout.on("data", (data) => {
-        console.log(data.toString());
-      });
-
-      child.stderr.on("data", (data) => {
-        console.error(data.toString());
-      });
-
-      child.on("close", (code) => {
-        vscode.window.showInformationMessage(`Package added successfully!`);
-      });
+      addDependency("dependencies");
+      addDependency("dev_dependencies");
 
       create(basePath, structureDomainPresentation);
 
