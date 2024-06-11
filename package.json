@@ -14,8 +14,16 @@
   "contributes": {
     "commands": [
       {
-        "command": "vscode-ext-aldev.helloWorld",
-        "title": "Hello World"
+        "command": "vscode-ext-aldev.init",
+        "title": "Aldev: Init"
+      },
+      {
+        "command": "vscode-ext-aldev.newDomain",
+        "title": "Aldev: New Domain"
+      },
+      {
+        "command": "vscode-ext-aldev.newPresentation",
+        "title": "Aldev: New Presentation"
       },
       {
         "command": "vscode-ext-aldev.newFeature",
@@ -28,22 +36,6 @@
       {
         "command": "vscode-ext-aldev.newBloc",
         "title": "Aldev: New Bloc"
-      },
-      {
-        "command": "vscode-ext-aldev.newUseCase",
-        "title": "Aldev: New UseCase"
-      },
-      {
-        "command": "vscode-ext-aldev.init",
-        "title": "Aldev: Init"
-      },
-      {
-        "command": "vscode-ext-aldev.newDomain",
-        "title": "Aldev: New Domain"
-      },
-      {
-        "command": "vscode-ext-aldev.newPresentation",
-        "title": "Aldev: New Presentation"
       }
     ],
     "menus": {
