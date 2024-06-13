@@ -43,7 +43,7 @@ export async function newPresentation(context: vscode.ExtensionContext) {
     const structure = {
       [inputName!]: {
         [stateManagementSelected! == "Riverpod" ? "provider" : stateManagementSelected!.toLowerCase()]: {},
-        screen: { files: [`${snakeCase}_screen.dart`] },
+        ui: { files: [`${snakeCase}_screen.dart`] },
       },
     };
 

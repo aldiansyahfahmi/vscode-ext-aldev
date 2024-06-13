@@ -71,7 +71,7 @@ export async function newFeature(context: vscode.ExtensionContext) {
         },
         presentation: {
           [stateManagementSelected! == "Riverpod" ? "provider" : stateManagementSelected!.toLowerCase()]: {},
-          screen: { files: [`${snakeCase}_screen.dart`] },
+          ui: { files: [`${snakeCase}_screen.dart`] },
         },
       },
     };
