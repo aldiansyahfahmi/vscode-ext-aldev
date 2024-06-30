@@ -22,6 +22,10 @@
         "title": "Aldev: New Domain"
       },
       {
+        "command": "vscode-ext-aldev.newSimpleDomain",
+        "title": "Aldev: New Simple Domain"
+      },
+      {
         "command": "vscode-ext-aldev.newPresentation",
         "title": "Aldev: New Presentation"
       },
@@ -56,8 +60,13 @@
           "when": "explorerResourceIsFolder"
         },
         {
-          "command": "vscode-ext-aldev.newPresentation",
+          "command": "vscode-ext-aldev.newSimpleDomain",
           "group": "group2@3",
+          "when": "explorerResourceIsFolder"
+        },
+        {
+          "command": "vscode-ext-aldev.newPresentation",
+          "group": "group2@4",
           "when": "explorerResourceIsFolder"
         },
         {

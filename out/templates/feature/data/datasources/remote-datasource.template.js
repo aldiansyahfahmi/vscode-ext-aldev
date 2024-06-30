@@ -23,7 +23,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getRemoteDataSourceTemplate = void 0;
+exports.getSimpleRemoteDataSourceTemplate = exports.getRemoteDataSourceTemplate = void 0;
 const changeCase = __importStar(require("change-case"));
 function getRemoteDataSourceTemplate(name) {
     return template(name);
@@ -57,6 +57,46 @@ class ${pascalCase}RemoteDataSourceImpl implements ${pascalCase}RemoteDataSource
         onDataDeserialized: (json) => List<${pascalCase}DataDto>.from(
           json.map(
             (x) => ${pascalCase}DataDto.fromJson(x),
+          ),
+        ),
+      );
+    } catch (e) {
+      rethrow;
+    }
+  }
+}
+`;
+}
+function getSimpleRemoteDataSourceTemplate(name) {
+    return simpleTemplate(name);
+}
+exports.getSimpleRemoteDataSourceTemplate = getSimpleRemoteDataSourceTemplate;
+function simpleTemplate(name) {
+    const pascalCase = changeCase.pascalCase(name.toLowerCase());
+    const snakeCase = changeCase.snakeCase(name.toLowerCase());
+    return `import 'package:dio/dio.dart';
+
+import '../../../../../shared_libraries/core/network/models/api_response.dart';
+import '../../models/response//${snakeCase}_response.dart';
+
+abstract class ${pascalCase}RemoteDataSource {
+  Future<ApiResponse<List<${pascalCase}Response>>> get${pascalCase}();
+}
+
+class ${pascalCase}RemoteDataSourceImpl implements ${pascalCase}RemoteDataSource {
+  final Dio dio;
+
+  ${pascalCase}RemoteDataSourceImpl({required this.dio});
+
+  @override
+  Future<ApiResponse<List<${pascalCase}Response>>> get${pascalCase}() async {
+    try {
+      final response = await dio.get('');
+      return ApiResponse.fromJson(
+        response.data,
+        onDataDeserialized: (json) => List<${pascalCase}Response>.from(
+          json.map(
+            (x) => ${pascalCase}Response.fromJson(x),
           ),
         ),
       );

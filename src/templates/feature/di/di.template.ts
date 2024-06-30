@@ -54,3 +54,50 @@ class ${pascalCase}Dependency {
 }
 `;
 }
+
+export function getDiSimpleTemplate(name: string): string {
+  return simpleTemplate(name);
+}
+
+function simpleTemplate(name: string): string {
+  const pascalCase = changeCase.pascalCase(name.toLowerCase());
+  const snakeCase = changeCase.snakeCase(name.toLowerCase());
+  const camelCase = changeCase.camelCase(name.toLowerCase());
+  return `import '../../../di/injections.dart';
+import '../datasources/remote/${snakeCase}_remote_datasource.dart';
+import '../repositories/${snakeCase}_repository.dart';
+import '../usecases/${snakeCase}_usecase.dart';
+
+class ${pascalCase}Dependency {
+  ${pascalCase}Dependency() {
+    _registerDataSource();
+    _registerRepository();
+    _registerUseCases();
+  }
+
+  void _registerDataSource() {
+    sl.registerLazySingleton<${pascalCase}RemoteDataSource>(
+      () => ${pascalCase}RemoteDataSourceImpl(
+        dio: sl(),
+      ),
+    );
+  }
+
+  void _registerRepository() {
+    sl.registerLazySingleton<${pascalCase}Repository>(
+      () => ${pascalCase}RepositoryImpl(
+        ${camelCase}RemoteDataSource: sl(),
+      ),
+    );
+  }
+
+  void _registerUseCases() {
+    sl.registerLazySingleton<${pascalCase}UseCase>(
+      () => ${pascalCase}UseCase(
+        ${camelCase}Repository: sl(),
+      ),
+    );
+  }
+}
+`;
+}

@@ -42,3 +42,44 @@ class ${pascalCase}RemoteDataSourceImpl implements ${pascalCase}RemoteDataSource
 }
 `;
 }
+
+export function getSimpleRemoteDataSourceTemplate(name: string): string {
+  return simpleTemplate(name);
+}
+
+function simpleTemplate(name: string): string {
+  const pascalCase = changeCase.pascalCase(name.toLowerCase());
+  const snakeCase = changeCase.snakeCase(name.toLowerCase());
+  return `import 'package:dio/dio.dart';
+
+import '../../../../../shared_libraries/core/network/models/api_response.dart';
+import '../../models/response//${snakeCase}_response.dart';
+
+abstract class ${pascalCase}RemoteDataSource {
+  Future<ApiResponse<List<${pascalCase}Response>>> get${pascalCase}();
+}
+
+class ${pascalCase}RemoteDataSourceImpl implements ${pascalCase}RemoteDataSource {
+  final Dio dio;
+
+  ${pascalCase}RemoteDataSourceImpl({required this.dio});
+
+  @override
+  Future<ApiResponse<List<${pascalCase}Response>>> get${pascalCase}() async {
+    try {
+      final response = await dio.get('');
+      return ApiResponse.fromJson(
+        response.data,
+        onDataDeserialized: (json) => List<${pascalCase}Response>.from(
+          json.map(
+            (x) => ${pascalCase}Response.fromJson(x),
+          ),
+        ),
+      );
+    } catch (e) {
+      rethrow;
+    }
+  }
+}
+`;
+}

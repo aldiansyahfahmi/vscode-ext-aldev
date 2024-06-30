@@ -27,3 +27,31 @@ class ${pascalCase}UseCase
 }
 `;
 }
+
+export function getSimpleUseCaseTemplate(name: string): string {
+  return simpleTemplate(name);
+}
+
+function simpleTemplate(name: string): string {
+  const pascalCase = changeCase.pascalCase(name.toLowerCase());
+  const snakeCase = changeCase.snakeCase(name.toLowerCase());
+  const camelCase = changeCase.camelCase(name.toLowerCase());
+  return `import 'package:dartz/dartz.dart';
+
+import '../../../../shared_libraries/utils/error/failure_response.dart';
+import '../../../../shared_libraries/utils/usecase/usecase.dart';
+import '../repositories/${snakeCase}_repository.dart';
+import '../models/response/${snakeCase}_response.dart';
+
+class ${pascalCase}UseCase
+    extends UseCase<List<${pascalCase}Response>, NoParams> {
+  final ${pascalCase}Repository ${camelCase}Repository;
+
+  ${pascalCase}UseCase({required this.${camelCase}Repository});
+  @override
+  Future<Either<FailureResponse, List<${pascalCase}Response>>> call(
+          NoParams params) async =>
+      ${camelCase}Repository.get${pascalCase}();
+}
+`;
+}

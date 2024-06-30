@@ -23,7 +23,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getRepositoryImplTemplate = void 0;
+exports.getSimpleRepositoryTemplate = exports.getRepositoryImplTemplate = void 0;
 const changeCase = __importStar(require("change-case"));
 function getRepositoryImplTemplate(name) {
     return template(name);
@@ -58,6 +58,46 @@ class ${pascalCase}RepositoryImpl implements ${pascalCase}Repository {
       final response = await ${camelCase}RemoteDataSource.get${pascalCase}();
       return Right(
           ${camelCase}Mapper.mapList${pascalCase}DataDtoToEntity(response.data!));
+    } on DioException catch (error) {
+      return Left(FailureResponse.dio(error));
+    }
+  }
+}
+`;
+}
+function getSimpleRepositoryTemplate(name) {
+    return simpleTemplate(name);
+}
+exports.getSimpleRepositoryTemplate = getSimpleRepositoryTemplate;
+function simpleTemplate(name) {
+    const pascalCase = changeCase.pascalCase(name.toLowerCase());
+    const camelCase = changeCase.camelCase(name.toLowerCase());
+    const snakeCase = changeCase.snakeCase(name.toLowerCase());
+    return `import 'package:dartz/dartz.dart';
+import 'package:dio/dio.dart';
+
+import '../../../../shared_libraries/utils/error/failure_response.dart';
+import '../datasources/remote/${snakeCase}_remote_datasource.dart';
+import '../models/response/${snakeCase}_response.dart';
+
+
+abstract class ${pascalCase}Repository {
+  Future<Either<FailureResponse, List<${pascalCase}Response>>> get${pascalCase}();
+}
+
+class ${pascalCase}RepositoryImpl implements ${pascalCase}Repository {
+  final ${pascalCase}RemoteDataSource ${camelCase}RemoteDataSource;
+
+  ${pascalCase}RepositoryImpl({
+    required this.${camelCase}RemoteDataSource,
+  });
+
+    @override
+  Future<Either<FailureResponse, List<${pascalCase}Response>>>
+      get${pascalCase}() async {
+    try {
+      final response = await ${camelCase}RemoteDataSource.get${pascalCase}();
+      return Right(response.data!);
     } on DioException catch (error) {
       return Left(FailureResponse.dio(error));
     }

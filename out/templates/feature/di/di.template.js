@@ -23,7 +23,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getDiTemplate = void 0;
+exports.getDiSimpleTemplate = exports.getDiTemplate = void 0;
 const changeCase = __importStar(require("change-case"));
 function getDiTemplate(name) {
     return template(name);
@@ -65,6 +65,52 @@ class ${pascalCase}Dependency {
       () => ${pascalCase}RepositoryImpl(
         ${camelCase}RemoteDataSource: sl(),
         ${camelCase}Mapper: sl(),
+      ),
+    );
+  }
+
+  void _registerUseCases() {
+    sl.registerLazySingleton<${pascalCase}UseCase>(
+      () => ${pascalCase}UseCase(
+        ${camelCase}Repository: sl(),
+      ),
+    );
+  }
+}
+`;
+}
+function getDiSimpleTemplate(name) {
+    return simpleTemplate(name);
+}
+exports.getDiSimpleTemplate = getDiSimpleTemplate;
+function simpleTemplate(name) {
+    const pascalCase = changeCase.pascalCase(name.toLowerCase());
+    const snakeCase = changeCase.snakeCase(name.toLowerCase());
+    const camelCase = changeCase.camelCase(name.toLowerCase());
+    return `import '../../../di/injections.dart';
+import '../datasources/remote/${snakeCase}_remote_datasource.dart';
+import '../repositories/${snakeCase}_repository.dart';
+import '../usecases/${snakeCase}_usecase.dart';
+
+class ${pascalCase}Dependency {
+  ${pascalCase}Dependency() {
+    _registerDataSource();
+    _registerRepository();
+    _registerUseCases();
+  }
+
+  void _registerDataSource() {
+    sl.registerLazySingleton<${pascalCase}RemoteDataSource>(
+      () => ${pascalCase}RemoteDataSourceImpl(
+        dio: sl(),
+      ),
+    );
+  }
+
+  void _registerRepository() {
+    sl.registerLazySingleton<${pascalCase}Repository>(
+      () => ${pascalCase}RepositoryImpl(
+        ${camelCase}RemoteDataSource: sl(),
       ),
     );
   }

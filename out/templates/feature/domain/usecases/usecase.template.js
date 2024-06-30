@@ -23,7 +23,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getUseCaseTemplate = void 0;
+exports.getSimpleUseCaseTemplate = exports.getUseCaseTemplate = void 0;
 const changeCase = __importStar(require("change-case"));
 function getUseCaseTemplate(name) {
     return template(name);
@@ -47,6 +47,33 @@ class ${pascalCase}UseCase
   ${pascalCase}UseCase({required this.${camelCase}Repository});
   @override
   Future<Either<FailureResponse, List<${pascalCase}DataEntity>>> call(
+          NoParams params) async =>
+      ${camelCase}Repository.get${pascalCase}();
+}
+`;
+}
+function getSimpleUseCaseTemplate(name) {
+    return simpleTemplate(name);
+}
+exports.getSimpleUseCaseTemplate = getSimpleUseCaseTemplate;
+function simpleTemplate(name) {
+    const pascalCase = changeCase.pascalCase(name.toLowerCase());
+    const snakeCase = changeCase.snakeCase(name.toLowerCase());
+    const camelCase = changeCase.camelCase(name.toLowerCase());
+    return `import 'package:dartz/dartz.dart';
+
+import '../../../../shared_libraries/utils/error/failure_response.dart';
+import '../../../../shared_libraries/utils/usecase/usecase.dart';
+import '../repositories/${snakeCase}_repository.dart';
+import '../models/response/${snakeCase}_response.dart';
+
+class ${pascalCase}UseCase
+    extends UseCase<List<${pascalCase}Response>, NoParams> {
+  final ${pascalCase}Repository ${camelCase}Repository;
+
+  ${pascalCase}UseCase({required this.${camelCase}Repository});
+  @override
+  Future<Either<FailureResponse, List<${pascalCase}Response>>> call(
           NoParams params) async =>
       ${camelCase}Repository.get${pascalCase}();
 }
