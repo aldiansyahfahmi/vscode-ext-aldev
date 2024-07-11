@@ -40,6 +40,14 @@ async function newCubit(context) {
             vscode.window.showErrorMessage("The name must not be empty");
             return;
         }
+        const typeOptions = ["Basic", "Pagination"];
+        const typeSelected = await vscode.window.showQuickPick(typeOptions, {
+            placeHolder: "Select Type",
+        });
+        if (!(0, is_name_valid_js_1.isNameValid)(typeSelected)) {
+            vscode.window.showErrorMessage("The type must not be empty");
+            return;
+        }
         // Uri menyediakan path ke folder yang diklik kanan
         const basePath = uri.fsPath;
         function create(basePath, folderName, files) {
@@ -57,7 +65,7 @@ async function newCubit(context) {
         }
         const cubitName = inputName?.toLowerCase();
         const files = [
-            { name: `${cubitName}_cubit.dart`, content: (0, cubit_template_js_1.getCubitTemplate)(cubitName) },
+            { name: `${cubitName}_cubit.dart`, content: typeSelected == "Basic" ? (0, cubit_template_js_1.getCubitTemplate)(cubitName) : (0, cubit_template_js_1.getCubitWithPaginationTemplate)(cubitName) },
             { name: `${cubitName}_state.dart`, content: (0, cubit_state_template_js_1.getCubitStateTemplate)(cubitName) },
         ];
         // Membuat struktur folder

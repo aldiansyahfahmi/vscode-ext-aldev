@@ -1,7 +1,7 @@
 import * as fs from "fs";
 import * as path from "path";
 import * as vscode from "vscode";
-import { getCubitTemplate } from "../templates/feature/presentation/cubit/cubit.template.js";
+import { getCubitTemplate, getCubitWithPaginationTemplate } from "../templates/feature/presentation/cubit/cubit.template.js";
 import { getCubitStateTemplate } from "../templates/feature/presentation/cubit/cubit_state.template.js";
 import { isNameValid } from "../utils/is-name-valid.js";
 import { showInputBox } from "../utils/show-input-box.js";
@@ -16,6 +16,17 @@ export async function newCubit(context: vscode.ExtensionContext) {
       vscode.window.showErrorMessage("The name must not be empty");
       return;
     }
+
+    const typeOptions = ["Basic", "Pagination"];
+    const typeSelected = await vscode.window.showQuickPick(typeOptions, {
+      placeHolder: "Select Type",
+    });
+
+    if (!isNameValid(typeSelected)) {
+      vscode.window.showErrorMessage("The type must not be empty");
+      return;
+    }
+
     // Uri menyediakan path ke folder yang diklik kanan
     const basePath = uri.fsPath;
 
@@ -38,7 +49,7 @@ export async function newCubit(context: vscode.ExtensionContext) {
     const cubitName = inputName?.toLowerCase();
 
     const files = [
-      { name: `${cubitName}_cubit.dart`, content: getCubitTemplate(cubitName!) },
+      { name: `${cubitName}_cubit.dart`, content: typeSelected == "Basic" ? getCubitTemplate(cubitName!) : getCubitWithPaginationTemplate(cubitName!) },
       { name: `${cubitName}_state.dart`, content: getCubitStateTemplate(cubitName!) },
     ];
 

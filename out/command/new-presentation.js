@@ -63,7 +63,9 @@ async function newPresentation(context) {
         const structure = {
             [inputName]: {
                 [stateManagementSelected == "Riverpod" ? "provider" : stateManagementSelected.toLowerCase()]: {},
-                ui: { files: [`${snakeCase}_screen.dart`] },
+                ui: {
+                    files: [`${snakeCase}_screen.dart`],
+                },
             },
         };
         function createDirectory(basePath, name) {
