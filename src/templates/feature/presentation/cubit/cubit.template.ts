@@ -71,7 +71,9 @@ class ${pascalCase}Cubit extends Cubit<${pascalCase}State> {
     emit(${pascalCase}State(${camelCase}State: ViewData.loading()));
     final result = await get${pascalCase}UseCase.call(const NoParams());
     result.fold(
-      (failure) => emit(
+      (failure) {
+        pagingController.error = failure;
+        emit(
         ${pascalCase}State(
           ${camelCase}State: ViewData.error(
             message: failure.errorMessage,
@@ -79,6 +81,7 @@ class ${pascalCase}Cubit extends Cubit<${pascalCase}State> {
           ),
         ),
       ),
+      }
       (result) {
         final isLastPage = result.meta!.currentPage! == result.meta!.lastPage!;
         if (isLastPage) {
