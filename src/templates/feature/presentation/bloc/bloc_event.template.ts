@@ -14,11 +14,11 @@ abstract class ${pascalCase}Event extends Equatable {
 }
 
 class ${pascalCase} extends ${pascalCase}Event {
-  final ${pascalCase}RequestEntity ${camelCase}RequestEntity;
+  final ${pascalCase}Request ${camelCase}Request;
 
-  const ${pascalCase}({required this.${camelCase}RequestEntity});
+  const ${pascalCase}({required this.${camelCase}Request});
 
   @override
-  List<Object?> get props => [${camelCase}RequestEntity];
+  List<Object?> get props => [${camelCase}Request];
 }`;
 }

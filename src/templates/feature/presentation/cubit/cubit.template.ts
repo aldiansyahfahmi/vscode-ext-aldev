@@ -31,13 +31,25 @@ class ${pascalCase}Cubit extends Cubit<${pascalCase}State> {
           ),
         ),
       ),
-      (result) => emit(
-        ${pascalCase}State(
-          ${camelCase}State: ViewData.loaded(
-            data: result,
-          ),
-        ),
-      ),
+      (result) {
+        if (result.data!.isEmpty) {
+          emit(
+            ${pascalCase}State(
+              ${camelCase}State: ViewData.noData(
+                message: 'Belum ada data',
+              ),
+            ),
+          );
+        } else {
+          emit(
+            ${pascalCase}State(
+              ${camelCase}State: ViewData.loaded(
+                data: result.data,
+              ),
+            ),
+          );
+        }
+      }
     );
   }
 }
@@ -64,8 +76,12 @@ class ${pascalCase}Cubit extends Cubit<${pascalCase}State> {
   ${pascalCase}Cubit({required this.get${pascalCase}UseCase})
       : super(${pascalCase}State(${camelCase}State: ViewData.initial()));
 
-  final PagingController<int, YourModel> pagingController =
-      PagingController(firstPageKey: 1);    
+  late PagingController<int, YourModel> pagingController;
+
+  void setPagingController(
+      PagingController<int, YourModel> controller) {
+    pagingController = controller;
+  }      
 
   void get${pascalCase}() async {
     emit(${pascalCase}State(${camelCase}State: ViewData.loading()));
@@ -81,7 +97,7 @@ class ${pascalCase}Cubit extends Cubit<${pascalCase}State> {
           ),
         ),
       ),
-      }
+      },
       (result) {
         final isLastPage = result.meta!.currentPage! == result.meta!.lastPage!;
         if (isLastPage) {
